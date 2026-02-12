@@ -1,0 +1,700 @@
+/* Reset */
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background-color: #73a1b2;
+}
+
+html, body {
+  height: 100%;
+  overflow: hidden;
+}
+
+:root {
+  --topBarHeight: 80px;
+  --app-vh: 1vh;
+  --app-base-width: 1440;
+  --app-base-height: 900;
+  --app-scale: 1;
+}
+
+#appRoot {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  width: calc(var(--app-base-width) * 1px);
+  height: calc(var(--app-base-height) * 1px);
+  transform: translate(-50%, -50%) scale(var(--app-scale));
+  transform-origin: center center;
+  overflow: hidden;
+  background-color: #73a1b2;
+}
+
+/* Screens */
+#skillsScreen {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  gap: 20px;
+  background-color: #73a1b2;
+  color: white;
+}
+
+#lessonsScreen{
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  width: 100%;
+  min-height: 100%;
+  background-color: #73a1b2;
+  color: white;
+  box-sizing: border-box;
+  padding: 20px;
+}
+
+#lessonDetailScreen {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  width: 100%;
+  min-height: 100%;
+  background-color: #73a1b2;
+  color: white;
+  box-sizing: border-box;
+  padding: 20px;                
+}
+
+#gameScreen {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  gap: 20px;
+  background-color: #73a1b2;
+  color: white;
+}
+
+#progressScreen {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  gap: 20px;
+  background-color: #73a1b2;
+  color: white;
+}
+
+#dailyScreen {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  gap: 20px;
+  background-color: #73a1b2;
+  color: white;
+}
+
+#welcomeScreen {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  gap: 20px;
+  background-color: #73a1b2;
+  color: white;
+}
+
+#loginScreen {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  gap: 20px;
+  background-color: #73a1b2;
+  color: white;
+}
+
+/* Ensure all screens fill the viewport */
+#skillsScreen,
+#lessonsScreen,
+#gameScreen,
+#progressScreen,
+#dailyScreen,
+#welcomeScreen,
+#loginScreen {
+  min-height: 100%;
+  width: 100%;
+  padding-top: 100px;   /* top bar */
+  padding-bottom: 80px; /* navbar */
+  box-sizing: border-box;
+}
+
+/* Center-only screens */
+#skillsScreen,
+#lessonsScreen,
+#gameScreen,
+#progressScreen,
+#dailyScreen,
+#welcomeScreen,
+#loginScreen {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+#skillsScreen,
+#lessonsScreen,
+#gameScreen,
+#progressScreen,
+#dailyScreen,
+#welcomeScreen,
+#loginScreen {
+  padding-top: calc(var(--topBarHeight) + 20px);
+}
+
+
+/* Full-screen login card */
+.loginCard {
+  display: absolute;
+  top: 50px;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255,255,255,0.1);
+  border-radius: 15px;
+  padding: 30px;
+  width: 80%;   /* Adjust to fit screen nicely */
+  max-width: 500px;
+  min-height: 80vh; /* fills majority of screen height */
+  margin-top: -60px; /* move up */
+  box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+}
+
+.loginHeaderWrapper {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  margin-bottom: 30px;
+}
+
+.loginHeader {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.appLogo {
+  width: 200px;
+  height: 200px;
+  object-fit: contain;
+}
+
+.appTitleBlock {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.appTitle {
+  font-size: 2.5rem;
+  margin: 0;
+  font-weight: bold;
+}
+
+.slogan {
+  margin-top: 10px;
+  font-size: 1rem;
+}
+
+.authBox {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+input {
+  width: 80%;
+  max-width: 300px;
+  margin:5px;
+  padding:10px;
+  border-radius:5px;
+  border:none;
+}
+
+.tabButtons button {
+  padding: 10px 20px;
+  border-radius: 5px;
+  border: none;
+  background-color: #6e8658;
+  color: white;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.tabButtons button:hover {
+  background-color: #2980b9;
+}
+
+
+/* Navbar */
+.navbar {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+  background-color: rgba(0,0,0,0.6);
+  padding: 5px 0;
+}
+.navbar button {
+  color: white;
+  background: none;
+  border: none;
+  font-size: 1rem;
+  cursor: pointer;
+  padding: 0 5px;
+  position: relative;
+}
+
+
+/* Skills grid screen */
+
+#skillsGrid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: repeat(3, 1fr);
+  gap: 20px;
+  width: min(1150px, 96vw);
+  height: 550px;
+  margin: 0 auto;
+}
+
+.card {
+  display: flex;
+  background-color: rgba(255,255,255,0.15);
+  border-radius: 12px;
+  overflow: hidden;
+  cursor: pointer;
+  transition: transform 0.2s, background-color 0.2s;
+}
+
+.card:hover {
+  transform: scale(1.05);
+  background-color: rgba(255,255,255,0.25);
+}
+
+.stripe {
+  width: 16px;
+}
+
+.stripe.blue { background-color: #3498db; }
+.stripe.orange { background-color: #e67e22; }
+.stripe.red { background-color: #e74c3c; }
+.stripe.green { background-color: #2ecc71; }
+.stripe.purple { background-color: #9b59b6; }
+.stripe.yellow { background-color: #f1c40f; }
+
+.card .content {
+  padding: 15px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.card .titleRow {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 8px;
+}
+
+.card h3 {
+  margin: 0;
+  font-size: 1.4rem;
+}
+
+.card p {
+  margin: 0;
+  font-size: 0.9rem;
+  color: #e0e0e0;
+}
+
+/* Lesson cards (skills-style) */
+.lessonCard {
+  display: flex;
+  width: min(1350px, 96vw);
+  flex-direction: column;
+  justify-content: center;
+  background: rgba(255,255,255,0.15);
+  border-radius: 14px;
+  padding: 20px;
+  cursor: pointer;
+  transition: transform 0.2s, background 0.2s;
+  color: white;
+  text-align: left;
+}
+
+.lessonCard p {
+  display: none;
+}
+
+
+.lessonCard h2 {
+  display: block;
+  text-align: center;
+  margin: 0;
+}
+
+
+.lessonCard:hover {
+  transform: scale(1.05);
+  background: rgba(255,255,255,0.25);
+}
+
+.lessonCard h3 {
+  margin: 0 0 8px 0;
+}
+
+.lessonCard p {
+  margin: 0;
+  font-size: 0.9rem;
+  color: #e0e0e0;
+}
+
+/*Lesson detail typography*/
+
+#lessonDetailScreen {
+  display: flex;
+  justify-content: center;   /* horizontal centering */
+  text-align: center;
+  padding: 20px;
+  height: 100%;             /* full viewport height */
+  box-sizing: border-box;
+  background-color: #73a1b2; /* your screen color */
+  overflow: hidden;          /* keep background from scrolling */
+}
+
+#lessonDetailScreen h1 {
+  font-size: 1.6rem;
+  margin-bottom: 10px;
+}
+
+#lessonDetailScreen h2 {
+  font-size: 1.3rem;
+  margin-top: 20px;
+}
+
+#lessonDetailScreen h3 {
+  font-size: 1.1rem;
+  margin-top: 15px;
+}
+
+#lessonDetailScreen p {
+  font-size: 1rem;
+  margin: 8px 0;
+}
+
+#lessonDetailScreen ul {
+  margin-left: 20px;
+}
+
+#lessonDetailScreen li {
+  margin-bottom: 6px;
+  font-size: 0.95rem;
+}
+
+/*Lesson scrollable wrapper*/
+
+#lessonDetailScreen .lessonWrapper {
+  width: 90%;               /* width of wrapper */
+  max-width: 900px;         /* max width */
+  height: 70vh;             /* height of wrapper */
+  background: #1e3a46; /* slightly transparent for aesthetic */
+  border-radius: 15px;
+  padding: 25px 30px;
+  overflow-y: auto;         /* make scrollable if content overflows */
+  box-shadow: 0 8px 20px rgba(0,0,0,0.25);
+  margin: 0 auto;           /* extra horizontal centering safety */
+}
+
+/* Optional: hide scroll bar for aesthetics (WebKit browsers) */
+#lessonDetailScreen .lessonWrapper::-webkit-scrollbar {
+  width: 6px;
+}
+
+#lessonDetailScreen .lessonWrapper::-webkit-scrollbar-thumb {
+  background-color: rgba(0,0,0,0.3);
+  border-radius: 3px;
+}
+
+/* Feedback text */
+.feedback { color: yellow; margin-top: 5px; }
+
+/* Progress Bar*/
+.progressRow {
+  display: flex;
+  justify-content: center;   /* horizontal centering */
+  align-items: center;       /* vertical centering */
+  background-color: rgba(255,255,255,0.1);
+  border-radius: 12px;
+  padding: 8px 12px;
+  margin-bottom: 10px;
+  width: min(1400px, 96vw);
+}
+
+.progressLabel {
+  font-weight: bold;
+  margin-right: 10px;
+  color: white;
+  min-width: 150px;
+}
+
+.progressBarContainer {
+  flex: 1;
+  height: 16px;
+  background-color: rgba(255,255,255,0.2);
+  border-radius: 8px;
+  overflow: hidden;
+  margin-right: 10px;
+}
+
+.progressBar {
+  height: 100%;
+  width: 0%;
+  border-radius: 8px;
+  transition: width 0.3s;
+}
+
+
+.progressBar.blue { background-color: #3498db; }
+.progressBar.orange { background-color: #f39c12; }
+.progressBar.red { background-color: #e74c3c; }
+.progressBar.green { background-color: #2ecc71; }
+.progressBar.purple { background-color: #9b59b6; }
+.progressBar.yellow { background-color: #f1c40f; }
+
+/* Game */
+#gameCanvas { border:2px solid white; background:#000; }
+
+.gameShell {
+  width: min(1000px, 96vw);
+  aspect-ratio: 16 / 9;
+  max-height: 70vh;
+}
+
+#gameCanvas {
+  width: 100%;
+  height: 100%;
+  display: block;
+  box-sizing: border-box;
+}
+
+.gameHud {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+}
+
+
+/* Notifications*/
+#notificationBell {
+  position: absolute;
+  top: 120px;
+  right: 20px;
+  font-size: 22px;
+  cursor: pointer;
+}
+
+.notifCount {
+  position: absolute;
+  top: -5px;
+  right: -8px;
+  background: red;
+  color: white;
+  border-radius: 50%;
+  font-size: 0.7rem;
+  padding: 2px 5px;
+}
+
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 2000;
+}
+
+.hidden {
+  display: none;
+}
+
+.notificationCard {
+  background: #1e3a46;
+  color: white;
+  width: 85%;
+  max-width: 400px;
+  border-radius: 16px;
+  padding: 20px;
+  text-align: center;
+}
+
+.notificationList {
+  max-height: 250px;
+  overflow-y: auto;
+  margin: 15px 0;
+}
+
+.notificationCard button {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 10px;
+  background-color: white;
+  color: #1e3a46;
+  cursor: pointer;
+}
+
+/* Back Button */
+.back {
+  position: absolute;
+  top: 115px;
+  left: 20px;
+  font-size: 1rem;
+  padding: 5px 10px;
+  border: none;
+  border-radius: 5px;
+  background-color: rgba(0,0,0,0.5);
+  color: white;
+  cursor: pointer;
+  z-index: 1000;
+}
+/* "Mark Complete" Button*/
+#completeLessonBtn {
+  position: absolute;           /* position relative to the screen */
+  bottom: 45px;                 /* distance from bottom */
+  right: 20px;                   /* distance from left */
+  font-size: 1rem;              /* same as back button */
+  padding: 10px 20px;            /* same as back button */
+  border: none;
+  border-radius: 5px;
+  background-color: rgba(0,0,0,0.5); /* match back button */
+  color: white;
+  cursor: pointer;
+  z-index: 1000;
+}
+
+#completeLessonBtn:hover {
+  background-color: rgba(0,0,0,0.7); /* slightly darker on hover */
+}
+/* Clear past prompts button*/
+#clearDailyBtn {
+  padding: 8px 15px;
+  border-radius: 5px;
+  border: none;
+  background-color: #e74c3c; /* red to indicate “delete/clear” */
+  color: white;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+#clearDailyBtn:hover {
+  background-color: #c0392b;
+}
+
+/* Clear progress button*/
+#clearProgressBtn {
+  padding: 8px 15px;
+  border-radius: 5px;
+  border: none;
+  background-color: #e74c3c; /* red to indicate “delete/clear” */
+  color: white;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+#clearProgressBtn:hover {
+  background-color: #c0392b;
+}
+
+/* Login-In Button*/
+#loginBtn {
+  width: 80%;
+  max-width: 300px;
+  padding: 10px 20px;
+  border-radius: 5px;
+  border: none;
+  background-color: #1e3a46;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+  margin-top: 10px;
+}
+#loginBtn:hover {
+  background-color: #2980b9;
+}
+
+/* Create Account Button*/
+#createaccountBtn {
+  width: 80%;
+  max-width: 300px;
+  padding: 10px 20px;
+  border-radius: 5px;
+  border: none;
+  background-color: #1e3a46;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+  margin-top: 10px;
+}
+
+#createaccountBtn:hover {
+  background-color: #2980b9;
+}
+
+#currentDate {
+  display: none;
+}
+
+@media (max-width: 900px) {
+  #skillsGrid {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto;
+    height: auto;
+  }
+
+  .progressRow {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 8px;
+  }
+
+  .progressLabel {
+    margin-right: 0;
+    min-width: 0;
+  }
+
+  .progressBarContainer {
+    margin-right: 0;
+  }
+}

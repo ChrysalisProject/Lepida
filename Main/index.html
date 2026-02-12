@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Lepida — Prototype</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+  
+<body>
+   <div id="appRoot">
+   <span id="currentDate"></span>
+  <div id="loginScreen" class="screen" style="display:flex; justify-content:center; align-items:center;">
+    <div class="card loginCard">
+
+      <div class="loginHeaderWrapper">
+        <div class="loginHeader">
+          <img src="https://i.imgur.com/vJ2wcpx.png" class="appLogo">
+
+          <div class="appTitleBlock">
+            <h1 class="appTitle">Lepida</h1>
+            <p class="slogan">"In the chrysalis lies change — in you lies potential"</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="authBox">
+        <div class="tabButtons">
+          <button id="btnShowLogin" onclick="showLogin()">Login</button>
+          <button id="btnShowSignup" onclick="showSignup()">Sign Up</button>
+        </div>
+
+        <!-- Login Form -->
+        <div id="loginForm" class="form">
+          <input id="loginUsername" placeholder="Username" />
+          <input id="loginPassword" type="password" placeholder="Password" />
+
+          <!-- Login Button -->
+          <button id="loginBtn" onclick="login()">Login</button>
+
+          <p id="loginFeedback" class="feedback"></p>
+        </div>
+
+
+        <!-- Signup Form -->
+        <div id="signupForm" class="form" style="display:none;">
+          <input id="signupUsername" placeholder="Create username" />
+          <input id="signupPassword" type="password" placeholder="Create password" />
+          <button id="createaccountBtn" onclick="signup()">Create Account</button>
+          <p id="signupFeedback" class="feedback"></p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- WELCOME SPLASH -->
+  <div id="welcomeScreen" class="screen" style="display:none;">
+    <h1>Welcome back</h1>
+    <h1 class="muted">Your journey awaits</h1>
+  </div>
+
+  <!-- SKILLS -->
+  <div id="skillsScreen" class="screen" style="display:none;">
+    <h1>Skills</h1>
+    <div id="skillsGrid" class="grid"></div>
+  </div>
+
+  <!-- LESSONS -->
+      <div id="lessonsScreen" class="screen" style="display:none;">
+        <div class="headerRow">
+          <button class="back" onclick="showScreen('skillsScreen')">← Back</button>
+          <h2 id="lessonsSkillTitle">Lessons</h2>
+        </div>
+        <div id="lessonsList" class="grid"></div>
+      </div>
+
+
+  <!-- LESSON DETAIL -->
+  <div id="lessonDetailScreen" class="screen" style="display:none;">
+    <div class="headerRow">
+      <button class="back" onclick="showScreen('lessonsScreen')">← Back</button>
+      <h2 id="lessonDetailTitle">Lesson</h2>
+    </div>
+    <div id="lessonDetailContent" class="content"></div>
+    <div class="lessonActions">
+      <button id="completeLessonBtn" onclick="markLessonComplete()">Mark Complete</button>
+    </div>
+  </div>
+
+  <!-- DAILY PROMPTS -->
+  <div id="dailyScreen" class="screen" style="display:none;">
+    <h2>Daily Prompt</h2>
+    <p id="todayPrompt" class="prompt"></p>
+    <textarea id="todayResponse" rows="5" placeholder="Write your response..."></textarea>
+    <div><button onclick="saveTodayPrompt()">Save Response</button></div>
+    <h3>Past Responses</h3>
+    <div id="pastPrompts" class="grid"></div>
+    <div style="margin-top: 15px;">
+      <button id="clearDailyBtn">Clear All Responses</button>
+    </div>
+
+  </div>
+<!--Game-->
+  <div id="gameScreen" class="screen" style="display:none;">
+    <div class="headerRow">
+      <h2>Games</h2>
+    </div>
+
+    <div class="gameShell">
+      <canvas id="gameCanvas" width="960" height="540"></canvas>
+    </div>
+
+    <div class="gameHud">
+      <button id="startGameBtn">Start</button>
+      <button id="resetGameBtn">Reset</button>
+    </div>
+  </div>
+
+  
+  <!-- PROGRESS -->
+  <div id="progressScreen" class="screen" style="display:none;">
+    <h2>Your Progress</h2>
+    <p>Total lessons completed: <strong id="lessonsCompleted">0</strong></p>
+    <h3>Per-skill progress</h3>
+    <div id="progressList" class="grid"></div>
+    <div style="margin-top: 15px;">
+      <button id="clearProgressBtn">Clear All Progress</button>
+    </div>
+  </div>
+
+  <!-- NAVBAR -->
+  <nav id="navbar" class="navbar" style="display:none;">
+    <button onclick="showScreen('skillsScreen')">Skills</button>
+    <button onclick="showScreen('dailyScreen')">Daily</button>
+    <button onclick="showScreen('gameScreen')">Games</button>
+    <button onclick="showScreen('progressScreen')">Progress</button>
+    <button id="btnSignOut" class="danger" onclick="signOut()">Sign out</button>
+  </nav>
+
+  <!-- NOTIFICATIONS -->
+  <span id="notificationBell" class= "hidden" onclick="openNotifications()">🔔<span id="notifCount"     class="notifCount">0</span></span>
+
+  <!-- Notification Overlay -->
+  <div id="notificationOverlay" class="overlay hidden">
+    <div class="notificationCard">
+      <h2>Notifications</h2>
+
+      <div class="notificationList">
+        <p>No new notifications yet 🎉</p>
+        <!-- future notifications go here -->
+      </div>
+
+      <button onclick="closeNotifications()">Close</button>
+    </div>
+  </div>
+</div>
+
+  
+  <script src="script.js"></script>
+</body>
+</html>
