@@ -116,6 +116,18 @@ function updateViewportUnit() {
   document.documentElement.style.setProperty('--app-vh', `${vh}px`);
 }
 
+function updateAppScale() {
+  const styles = getComputedStyle(document.documentElement);
+  const baseWidth = Number.parseFloat(styles.getPropertyValue('--app-base-width')) || 1440;
+  const baseHeight = Number.parseFloat(styles.getPropertyValue('--app-base-height')) || 900;
+
+  const widthScale = window.innerWidth / baseWidth;
+  const heightScale = window.innerHeight / baseHeight;
+  const nextScale = Math.min(widthScale, heightScale, 1);
+
+  document.documentElement.style.setProperty('--app-scale', String(nextScale));
+}
+
 function resizeGameCanvas() {
   const canvas = document.getElementById('gameCanvas');
   if (!canvas) return;
