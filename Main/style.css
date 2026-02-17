@@ -6,27 +6,22 @@ body {
 }
 
 html, body {
-  height: 100%;
-  overflow: hidden;
+  min-height: 100%;
+  overflow-x: hidden;
 }
 
 :root {
   --topBarHeight: 80px;
   --app-vh: 1vh;
-  --app-base-width: 1440;
-  --app-base-height: 900;
-  --app-scale: 1;
+  --navbarHeight: 56px;
+  --screenGutter: 20px;
 }
 
 #appRoot {
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  width: calc(var(--app-base-width) * 1px);
-  height: calc(var(--app-base-height) * 1px);
-  transform: translate(-50%, -50%) scale(var(--app-scale));
-  transform-origin: center center;
-  overflow: hidden;
+  position:relative;
+  width: min(100%, 1400px);
+  min-height: 100dvh;
+  margin: auto 0;
   background-color: #73a1b2;
 }
 
@@ -127,50 +122,39 @@ html, body {
   color: white;
 }
 
-/* Ensure all screens fill the viewport */
+/* Ensure all screens are avalible */
 #skillsScreen,
+#leesonDeatilScreen,
 #lessonsScreen,
 #gameScreen,
 #progressScreen,
 #dailyScreen,
 #welcomeScreen,
 #loginScreen {
-  min-height: 100%;
+  min-height: calc(100dvh - var(--navbarHeight));
   width: 100%;
-  padding-top: 100px;   /* top bar */
-  padding-bottom: 80px; /* navbar */
-  box-sizing: border-box;
-}
 
-/* Center-only screens */
-#skillsScreen,
-#lessonsScreen,
-#gameScreen,
-#progressScreen,
-#dailyScreen,
-#welcomeScreen,
-#loginScreen {
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
-  text-align: center;
+  text-align: center;  
+  gap: 20px;
+  padding: calc(var(--topBarHeight) + 20px) var(--screenGutter) calc(var(--navbarHeight) + 20px);
+  box-sizing: border-box;
+  overflow-y: auto;
 }
 
-#skillsScreen,
-#lessonsScreen,
-#gameScreen,
-#progressScreen,
-#dailyScreen,
+
 #welcomeScreen,
 #loginScreen {
-  padding-top: calc(var(--topBarHeight) + 20px);
+  justify-content: center;
 }
 
 
 /* Full-screen login card */
 .loginCard {
-  display: absolute;
+  display: flex;
   top: 50px;
   flex-direction: column;
   align-items: center;
@@ -277,12 +261,11 @@ input {
 
 #skillsGrid {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  grid-template-rows: repeat(3, 1fr);
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
   gap: 20px;
-  width: min(1150px, 96vw);
-  height: 550px;
+  width: min(1150px, 100%);
   margin: 0 auto;
+  align-content: start;
 }
 
 .card {
@@ -338,7 +321,7 @@ input {
 /* Lesson cards (skills-style) */
 .lessonCard {
   display: flex;
-  width: min(1350px, 96vw);
+  width: min(1350px, 100%);
   flex-direction: column;
   justify-content: center;
   background: rgba(255,255,255,0.15);
@@ -381,13 +364,10 @@ input {
 
 #lessonDetailScreen {
   display: flex;
-  justify-content: center;   /* horizontal centering */
-  text-align: center;
-  padding: 20px;
-  height: 100%;             /* full viewport height */
+  justify-content: flex-start;   /* horizontal centering */
+  text-align: center;            
   box-sizing: border-box;
   background-color: #73a1b2; /* your screen color */
-  overflow: hidden;          /* keep background from scrolling */
 }
 
 #lessonDetailScreen h1 {
@@ -422,10 +402,10 @@ input {
 /*Lesson scrollable wrapper*/
 
 #lessonDetailScreen .lessonWrapper {
-  width: 90%;               /* width of wrapper */
-  max-width: 900px;         /* max width */
-  height: 70vh;             /* height of wrapper */
-  background: #1e3a46; /* slightly transparent for aesthetic */
+  width: min(900px, 100%);
+  max-width: 900px;
+  max-height: min(70vh, calc(100dvh - var(--topBarHeight) - var(--navbarHeight) - 120px));
+  background: #1e3a46;
   border-radius: 15px;
   padding: 25px 30px;
   overflow-y: auto;         /* make scrollable if content overflows */
@@ -455,7 +435,7 @@ input {
   border-radius: 12px;
   padding: 8px 12px;
   margin-bottom: 10px;
-  width: min(1400px, 96vw);
+  width: min(1400px, 100%);
 }
 
 .progressLabel {
@@ -577,9 +557,9 @@ input {
 
 /* Back Button */
 .back {
-  position: absolute;
-  top: 115px;
-  left: 20px;
+  position: sticky;
+  top: calc(var(--topBarHeight)+8px);
+  left: 0;
   font-size: 1rem;
   padding: 5px 10px;
   border: none;
@@ -587,13 +567,14 @@ input {
   background-color: rgba(0,0,0,0.5);
   color: white;
   cursor: pointer;
-  z-index: 1000;
+  z-index: 10;
+  align-self: flex-start;
 }
 /* "Mark Complete" Button*/
 #completeLessonBtn {
-  position: absolute;           /* position relative to the screen */
-  bottom: 45px;                 /* distance from bottom */
-  right: 20px;                   /* distance from left */
+  position: sticky;           /* position relative to the screen */
+  bottom: calc(var(--navbarHeight)+12px);                 /* distance from bottom */
+  right: 0;                   /* distance from left */
   font-size: 1rem;              /* same as back button */
   padding: 10px 20px;            /* same as back button */
   border: none;
@@ -601,7 +582,8 @@ input {
   background-color: rgba(0,0,0,0.5); /* match back button */
   color: white;
   cursor: pointer;
-  z-index: 1000;
+  z-index: 10;
+  margin-left: auto;          /* push to right */
 }
 
 #completeLessonBtn:hover {
@@ -677,6 +659,24 @@ input {
 }
 
 @media (max-width: 900px) {
+  :root {
+    --topBarHeight: 56px;
+    --navbarHeight: 92px;
+    --screenGutter: 14px;
+  }
+
+  .navbar {
+    flex-wrap: wrap;
+    row-gap: 6px;
+    padding: 8px 6px;
+  }
+
+  .navbar button {
+    flex: 1 1 30%;
+    min-width: 100px;
+    font-size: 0.95rem;
+  }
+
   #skillsGrid {
     grid-template-columns: 1fr;
     grid-template-rows: auto;
@@ -696,5 +696,31 @@ input {
 
   .progressBarContainer {
     margin-right: 0;
+  }
+
+
+  .loginHeader {
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .appLogo {
+    width: 120px;
+    height: 120px;
+  }
+
+  .appTitleBlock {
+    align-items: center;
+  }
+
+  .loginCard {
+    width: min(560px, 100%);
+    min-height: auto;
+    margin-top: 0;
+    padding: 20px;
+  }
+
+  #lessonDetailScreen .lessonWrapper {
+    padding: 18px;
   }
 }
