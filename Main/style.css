@@ -25,6 +25,11 @@ html, body {
   background-color: #73a1b2;
 }
 
+.applogo {
+  width: 300px;
+  height: auto;
+}
+
 /* Screens */
 #skillsScreen {
   display: flex;
