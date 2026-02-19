@@ -25,11 +25,6 @@ html, body {
   background-color: #73a1b2;
 }
 
-.applogo {
-  width: 300px;
-  height: auto;
-}
-
 /* Screens */
 #skillsScreen {
   display: flex;
@@ -187,10 +182,9 @@ html, body {
   align-items: center;
 }
 
-.appLogo {
-  width: 200px;
-  height: 200px;
-  object-fit: contain;
+.applogo {
+  width: 300px;
+  height: auto;
 }
 
 .appTitleBlock {
