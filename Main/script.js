@@ -152,9 +152,30 @@ function handleAppResize() {
   resizeGameCanvas();
 }
 
+function initGameOpening() {
+  const openingScreen = document.getElementById('openingScreen');
+  const gameCanvas = document.getElementById('gameCanvas');
+  const startGameBtn = document.getElementById('startGameBtn');
+  const resetGameBtn = document.getElementById('resetGameBtn');
+
+  if (!openingScreen || !gameCanvas || !startGameBtn || !resetGameBtn) return;
+
+  startGameBtn.addEventListener('click', () => {
+    openingScreen.style.display = 'none';
+    gameCanvas.style.display = 'block';
+    resizeGameCanvas();
+  });
+
+  resetGameBtn.addEventListener('click', () => {
+    openingScreen.style.display = 'flex';
+    gameCanvas.style.display = 'none';
+  });
+}
+
 setInterval(updateDate, 60000);
 updateDate();
 handleAppResize();
+initGameOpening();
 window.addEventListener('resize', handleAppResize);
 window.addEventListener('orientationchange', handleAppResize);
 document.addEventListener('fullscreenchange', handleAppResize);

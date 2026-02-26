@@ -102,20 +102,17 @@
   </div>
 <!--Game-->
   <div id="gameScreen" class="screen" style="display:none;">
-    <div class="headerRow">
-      <h1>PHYTROPICA</h1>
-    </div>
-
-    <div class="gameShell">
-       <div id="openingScreen"></div>
-        <canvas id="gameCanvas" width="960" height="540"></canvas>
-    </div>
-
-    <div class="gameHud">
-      <button id="startGameBtn">Start</button>
-      <button id="resetGameBtn">Reset</button>
-    </div>
-  </div>
+  <div id="openingScreen" class="openingOverlay">
+        <div class="openingMenu">
+          <h2>Welcome to Phytropica</h2>
+          <p>Grow, explore, and build your island.</p>
+          <div class="openingActions">
+            <button id="startGameBtn" class="menuBtn">Start</button>
+            <button id="resetGameBtn" class="menuBtn">Reset</button>
+          </div>
+        </div>
+      </div>
+      <canvas id="gameCanvas" width="960" height="540" style="display:none;"></canvas>
 
   
   <!-- PROGRESS -->
