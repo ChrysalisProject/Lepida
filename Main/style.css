@@ -470,9 +470,9 @@ input {
 
 /* Game */
 .gameShell {
-  width: min(1000px, 96vw);
+  width: min(1150px, 100%);
   aspect-ratio: 16 / 9;
-  max-height: 70vh;
+  max-height: min(65vh, calc(100dvh - var(--topBarHeight) - var(--navbarHeight) - 80px));
   position: relative;
   overflow: hidden;
   border: 2px solid white;
