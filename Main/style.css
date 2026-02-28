@@ -483,29 +483,41 @@ input {
 }
 
 
+.gameViewport {
+  position: absolute;
+  inset: 8px;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+#openingScreen {
+  position: absolute;
+  inset: 0;
+  background-color: #10242c;
+  justify-content: center;
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  padding: 24px;
+  z-index: 2;
+}
+
+#openingImage {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  border-radius: 8px;
+  z-index: 0;
+  pointer-events: none;
+}
+
 .openingMenu {
   position: relative;
   z-index: 1;
-  width: min(1150px, 100%);
-  aspect-ratio: 16 / 9;
-  max-height: min(72vh, calc(100dvh - var(--topBarHeight) - var(--navbarHeight) - 64px));
-  text-align: center;
-  color: white;
-  background: rgba(0, 0, 0, 0.55);
-  backdrop-filter: blur(2px);
-  border-radius: 12px;
-  padding: 16px;
-}
-
-.openingMenu h2 {
-  margin: 0 0 8px;
-}
-
-.openingMenu p {
-  margin: 0 0 14px;
-}
-
-.openingActions {
   display: flex;
   gap: 10px;
   justify-content: center;
@@ -521,16 +533,14 @@ input {
 }
 
 #startGameBtn {
-  background: #28a745;
-  color: #fff;
+  color: #ffde59;
+
 }
 
-#resetGameBtn {
-  background: #e63946;
-  color: #fff;
-}
 
 #gameCanvas {
+  position: absolute;
+  inset: 0;
   width: 100%;
   height: 100%;
   border-radius: 8px;
