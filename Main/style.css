@@ -486,7 +486,9 @@ input {
 .openingMenu {
   position: relative;
   z-index: 1;
-  width: min(420px, 100%);
+  width: min(1150px, 100%);
+  aspect-ratio: 16 / 9;
+  max-height: min(72vh, calc(100dvh - var(--topBarHeight) - var(--navbarHeight) - 64px));
   text-align: center;
   color: white;
   background: rgba(0, 0, 0, 0.55);
