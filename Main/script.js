@@ -155,11 +155,25 @@ function handleAppResize() {
 function initGameOpening() {
   const openingScreen = document.getElementById('openingScreen');
   const gameCanvas = document.getElementById('gameCanvas');
-  const startGameBtn = document.getElementById('startGameBtn');
+  const newGameBtn = document.getElementById('newGameBtn');
+  const continueBtn = document.getElementById('countinueBtn');
+  const creditsBtn = document.getElementById('creditsBtn');
 
-  if (!openingScreen || !gameCanvas || !startGameBtn || !resetGameBtn) return;
+  if (!openingScreen || !gameCanvas || !newGameBtn || !continueBtn || !creditsBtn) return;
 
-  startGameBtn.addEventListener('click', () => {
+  newGameBtn.addEventListener('click', () => {
+    openingScreen.style.display = 'none';
+    gameCanvas.style.display = 'block';
+    resizeGameCanvas();
+  });
+
+  continueBtn.addEventListener('click', () => {
+    openingScreen.style.display = 'none';
+    gameCanvas.style.display = 'block';
+    resizeGameCanvas();
+  });
+
+  creditsBtn.addEventListener('click', () => {
     openingScreen.style.display = 'none';
     gameCanvas.style.display = 'block';
     resizeGameCanvas();

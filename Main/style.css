@@ -494,12 +494,10 @@ input {
   position: absolute;
   inset: 0;
   background-color: #10242c;
-  justify-content: center;
-  align-items: center;
+  justify-content: flex-start;
+  align-items: flex-start;
   display: flex;
-  justify-content: center;
-  align-items: flex-end;
-  padding: 24px;
+  padding: 185px 0 0 165px;
   z-index: 2;
 }
 
@@ -525,18 +523,44 @@ input {
 }
 
 .menuBtn {
-  padding: 10px 18px;
+  padding: 0;
   border: 0;
-  border-radius: 999px;
-  font-weight: 700;
+  background: transparent;
+  font-family: "Press Start 2P", system-ui;
+  font-size: clamp(14px, 2vw, 22px);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
   cursor: pointer;
 }
 
-#startGameBtn {
+#newGameBtn,
+#continueBtn
+#creditsBtn {
   color: #ffde59;
-
+  text-shadow: 2px 2px 0 rgba(0, 0, 0, 0.85);
 }
 
+#newGameBtn:hover,
+#newGameBtn:focus-visible {
+  color: #fff799;
+}
+
+#continueBtn:hover,
+#continueBtn:focus-visible {
+  color: #fff799;
+}
+
+#creditsBtn:hover,
+#creditsBtn:focus-visible {
+  color: #fff799;
+}
+
+.openingActions {
+  position: absolute;
+  left: var(--newgame-btn-x, 50%);
+  top: var(--newgame-y, 60%);
+  transform: translate(-50%, -50%);
+}
 
 #gameCanvas {
   position: absolute;
