@@ -156,25 +156,94 @@ function initGameOpening() {
   const openingScreen = document.getElementById('openingScreen');
   const gameCanvas = document.getElementById('gameCanvas');
   const newGameBtn = document.getElementById('newGameBtn');
-  const continueBtn = document.getElementById('countinueBtn');
+  const continueBtn = document.getElementById('continueBtn');
   const creditsBtn = document.getElementById('creditsBtn');
+  const sceneZeroOverlay = document.getElementById('sceneZeroOverlay');
+  const sceneZeroText = document.getElementById('sceneZeroText');
 
-  if (!openingScreen || !gameCanvas || !newGameBtn || !continueBtn || !creditsBtn) return;
+  if (!openingScreen || !gameCanvas || !newGameBtn || !continueBtn || !creditsBtn || !sceneZeroOverlay || !sceneZeroText) return;
+
+  const sceneZeroLines = [
+    'You wake up to a life that is finally yours',
+    'No one will tell you what to do anymore.',
+    'That also means no one will save you if you don’t.'
+  ];
+
+  let sceneZeroTimeouts = [];
+
+  function clearSceneZeroTimers() {
+    sceneZeroTimeouts.forEach((timerId) => clearTimeout(timerId));
+    sceneZeroTimeouts = [];
+  }
+
+  function typeWriterLine(line, lineDelay = 40) {
+    return new Promise((resolve) => {
+      let charIndex = 0;
+      const typeNext = () => {
+        if (charIndex < line.length) {
+          sceneZeroText.textContent += line.charAt(charIndex);
+          charIndex += 1;
+          const timeoutId = setTimeout(typeNext, lineDelay);
+          sceneZeroTimeouts.push(timeoutId);
+          return;
+        }
+
+        sceneZeroText.textContent += '\n\n';
+        resolve();
+      };
+
+      typeNext();
+    });
+  }
+
+  async function playSceneZero() {
+    clearSceneZeroTimers();
+    openingScreen.style.display = 'none';
+    gameCanvas.style.display = 'none';
+    sceneZeroText.textContent = '';
+    sceneZeroOverlay.style.display = 'flex';
+
+    requestAnimationFrame(() => {
+      sceneZeroOverlay.classList.add('active');
+    });
+
+    for (const line of sceneZeroLines) {
+      await typeWriterLine(line);
+      await new Promise((resolve) => {
+        const timeoutId = setTimeout(resolve, 500);
+        sceneZeroTimeouts.push(timeoutId);
+      });
+    }
+
+    const fadeOutDelay = setTimeout(() => {
+      sceneZeroOverlay.classList.remove('active');
+
+      const hideOverlayDelay = setTimeout(() => {
+        sceneZeroOverlay.style.display = 'none';
+        gameCanvas.style.display = 'block';
+        resizeGameCanvas();
+      }, 1000);
+
+      sceneZeroTimeouts.push(hideOverlayDelay);
+    }, 1200);
+
+    sceneZeroTimeouts.push(fadeOutDelay);
+  }
 
   newGameBtn.addEventListener('click', () => {
-    openingScreen.style.display = 'none';
-    gameCanvas.style.display = 'block';
-    resizeGameCanvas();
+    playSceneZero();
   });
 
   continueBtn.addEventListener('click', () => {
     openingScreen.style.display = 'none';
+    sceneZeroOverlay.style.display = 'none';
     gameCanvas.style.display = 'block';
     resizeGameCanvas();
   });
 
   creditsBtn.addEventListener('click', () => {
     openingScreen.style.display = 'none';
+    sceneZeroOverlay.style.display = 'none';
     gameCanvas.style.display = 'block';
     resizeGameCanvas();
   });

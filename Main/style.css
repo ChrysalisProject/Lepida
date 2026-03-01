@@ -514,12 +514,9 @@ input {
 }
 
 .openingMenu {
-  position: relative;
+  position: absolute;
+  inset: 0;
   z-index: 1;
-  display: flex;
-  gap: 10px;
-  justify-content: center;
-  flex-wrap: wrap;
 }
 
 .menuBtn {
@@ -534,7 +531,7 @@ input {
 }
 
 #newGameBtn,
-#continueBtn
+#continueBtn,
 #creditsBtn {
   color: #ffde59;
   text-shadow: 2px 2px 0 rgba(0, 0, 0, 0.85);
@@ -542,23 +539,28 @@ input {
 
 #newGameBtn:hover,
 #newGameBtn:focus-visible {
-  color: #fff799;
+  color: #000000;
 }
 
 #continueBtn:hover,
 #continueBtn:focus-visible {
-  color: #fff799;
+  color: #000000;
 }
 
 #creditsBtn:hover,
 #creditsBtn:focus-visible {
-  color: #fff799;
+  color: #000000;
 }
 
 .openingActions {
   position: absolute;
-  left: var(--newgame-btn-x, 50%);
-  top: var(--newgame-y, 60%);
+  inset: 0;
+}
+
+.openingMenuBtn{
+  position: absolute;
+  left: var(--btn-x, 50%);
+  top: var(--btn-y, 60%);
   transform: translate(-50%, -50%);
 }
 
@@ -571,6 +573,42 @@ input {
   display: block;
   box-sizing: border-box;
   background: #000;
+}
+
+.sceneZeroOverlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 40px;
+  background: #000;
+  opacity: 0;
+  transition: opacity 1s ease;
+  z-index: 3;
+}
+
+.sceneZeroOverlay.active {
+  opacity: 1;
+}
+
+.sceneZeroBox {
+  width: min(860px, 100%);
+  padding: clamp(20px, 4vw, 40px);
+  border: 2px solid rgba(255, 255, 255, 0.6);
+  background: rgba(0, 0, 0, 0.55);
+  box-shadow: 0 0 30px rgba(0, 0, 0, 0.45);
+}
+
+.sceneZeroText {
+  margin: 0;
+  font-family: "Press Start 2P", system-ui;
+  font-size: clamp(12px, 1.35vw, 20px);
+  color: #f1f1f1;
+  line-height: 1.8;
+  white-space: pre-wrap;
+  min-height: 7.2em;
+  text-align: left;
 }
 
 /* Notifications*/

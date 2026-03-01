@@ -106,20 +106,25 @@
 </div>
 <!--Game-->
 <div id="gameScreen" class="screen" style="display:none;">
-    <div class="gameShell">
-      <div class="gameViewport">
-        <div id="openingScreen" class="openingOverlay">
-          <img id="openingImage" src="Assets/Backgrounds/Game Opening.png" alt="Phytropica opening background" />
-          <div class="openingMenu">
-            <div class="openingActions" style="--start-btn-x: 50%; --start-btn-y: 60%;">
-              <button id="newGameBtn" class="menuBtn">New Game</button>
-              <button id="continueBtn" class="menuBtn">Continue</button>
-              <button id="creditsBtn" class="menuBtn">Credits</button>
-            </div>
+  <div class="gameShell">
+    <div class="gameViewport">
+      <div id="openingScreen" class="openingOverlay">
+        <img id="openingImage" src="Assets/Backgrounds/Game Opening.png" alt="Phytropica opening background" />
+        <div class="openingMenu">
+          <div class="openingActions">
+            <button id="newGameBtn" class="menuBtn openingMenuBtn" style="--btn-x: 15%; --btn-y: 41.5%;">New Game</button>
+            <button id="continueBtn" class="menuBtn openingMenuBtn" style="--btn-x: 15%; --btn-y: 62.5%;">Continue</button>
+            <button id="creditsBtn" class="menuBtn openingMenuBtn" style="--btn-x: 15%; --btn-y: 83.5%;">Credits</button>
           </div>
         </div>
       </div>
-    <canvas id="gameCanvas" width="960" height="540" style="display:none;"></canvas>
+        <div id="sceneZeroOverlay" class="sceneZeroOverlay" aria-live="polite" style="display:none;">
+          <div class="sceneZeroBox">
+            <p id="sceneZeroText" class="sceneZeroText"></p>
+          </div>
+        </div>
+    </div>
+      <canvas id="gameCanvas" width="960" height="540" style="display:none;"></canvas>
   </div>
 </div>
   <!-- PROGRESS -->
