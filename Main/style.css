@@ -611,6 +611,139 @@ input {
   text-align: left;
 }
 
+.storyScene {
+  position: absolute;
+  inset: 0;
+  border-radius: 8px;
+  overflow: hidden;
+  background: #111;
+  color: #fff;
+}
+
+.storyBackground {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: brightness(0.78);
+}
+
+.fanSpinner {
+  position: absolute;
+  top: 14%;
+  left: 50%;
+  width: 130px;
+  height: 130px;
+  margin-left: -65px;
+  border-radius: 50%;
+  border: 3px solid rgba(255,255,255,0.35);
+  box-shadow: 0 0 0 12px rgba(255,255,255,0.08) inset;
+  animation: fanSpin 10s linear infinite;
+  z-index: 2;
+}
+
+.fanSpinner::before,
+.fanSpinner::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 8px;
+  height: 55px;
+  background: rgba(255,255,255,0.42);
+  transform-origin: 50% 0;
+}
+
+.fanSpinner::before {
+  transform: translate(-50%, -50%) rotate(0deg);
+}
+
+.fanSpinner::after {
+  transform: translate(-50%, -50%) rotate(90deg);
+}
+
+@keyframes fanSpin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.statsPanel {
+  position: absolute;
+  top: 14px;
+  left: 14px;
+  background: rgba(7, 16, 22, 0.72);
+  border: 1px solid rgba(255,255,255,0.25);
+  padding: 10px 12px;
+  line-height: 1.6;
+  font-size: 12px;
+  z-index: 3;
+}
+
+.phoneNotification {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  width: min(340px, 40%);
+  background: rgba(11, 24, 35, 0.85);
+  border-left: 3px solid #ffde59;
+  padding: 10px 12px;
+  font-size: 12px;
+  z-index: 3;
+}
+
+.storyNarration {
+  position: absolute;
+  left: 50%;
+  bottom: 110px;
+  transform: translateX(-50%);
+  width: min(90%, 920px);
+  min-height: 56px;
+  background: rgba(0,0,0,0.62);
+  border: 1px solid rgba(255,255,255,0.24);
+  padding: 14px 16px;
+  font-size: 14px;
+  z-index: 3;
+}
+
+.interactionPanel {
+  position: absolute;
+  left: 50%;
+  bottom: 14px;
+  transform: translateX(-50%);
+  width: min(90%, 920px);
+  background: rgba(12, 18, 22, 0.88);
+  border: 1px solid rgba(255,255,255,0.22);
+  padding: 10px 14px;
+  z-index: 3;
+}
+
+.interactionPanel h3,
+.interactionPanel p {
+  margin: 0 0 6px;
+}
+
+.interactionActions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.storyBtn {
+  border: 1px solid rgba(255,255,255,0.3);
+  background: rgba(255,255,255,0.09);
+  color: #fff;
+  padding: 8px 10px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.storyBtn:hover,
+.storyBtn:focus-visible {
+  background: rgba(255,255,255,0.2);
+}
+
+
 /* Notifications*/
 #notificationBell {
   position: absolute;

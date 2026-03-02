@@ -123,6 +123,32 @@
             <p id="sceneZeroText" class="sceneZeroText"></p>
           </div>
         </div>
+
+        <div id="storyScene" class="storyScene" style="display:none;" aria-live="polite">
+          <img id="storyBackground" class="storyBackground" src="Assets/Backgrounds/Interior(Background).png" alt="Bedroom interior" />
+
+          <div class="fanSpinner" aria-hidden="true"></div>
+
+          <div class="statsPanel">
+            <div><strong>Health:</strong> <span id="statHealth">72</span></div>
+            <div><strong>Hunger:</strong> <span id="statHunger">46</span></div>
+            <div><strong>Thirst:</strong> <span id="statThirst">43</span></div>
+            <div><strong>Mental Meter:</strong> <span id="statMental">32</span> <small>(low but stable)</small></div>
+          </div>
+
+          <div id="phoneNotification" class="phoneNotification" style="display:none;">
+            <strong>Phone notification</strong>
+            <p><strong>Reminder:</strong> First day of work starts today.<br>Topic: <em>Money doesn’t manage itself.</em></p>
+          </div>
+
+          <div class="storyNarration" id="storyNarration"></div>
+
+          <div class="interactionPanel" id="interactionPanel">
+            <h3 id="interactionTitle">Interactable: Bed</h3>
+            <p id="interactionPrompt">Prompt: Get up / Stay a moment</p>
+            <div id="interactionActions" class="interactionActions"></div>
+          </div>
+        </div>
     </div>
       <canvas id="gameCanvas" width="960" height="540" style="display:none;"></canvas>
   </div>
