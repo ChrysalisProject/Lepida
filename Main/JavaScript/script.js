@@ -1,3 +1,5 @@
+
+
 // ----------------------
 // LOGIN STATE
 // ----------------------
@@ -127,6 +129,7 @@ function updateAppScale() {
 
   document.documentElement.style.setProperty('--app-scale', String(nextScale));
 }
+
 
 function handleAppResize() {
   updateViewportUnit();
