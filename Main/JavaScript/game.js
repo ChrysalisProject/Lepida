@@ -31,10 +31,21 @@ function initGameOpening() {
   const interactionPrompt = document.getElementById('interactionPrompt');
   const interactionActions = document.getElementById('interactionActions');
   const phoneNotification = document.getElementById('phoneNotification');
+  const phoneNotificationOkBtn = document.getElementById('phoneNotificationOkBtn');
   const statHealth = document.getElementById('statHealth');
   const statHunger = document.getElementById('statHunger');
   const statThirst = document.getElementById('statThirst');
   const statMental = document.getElementById('statMental');
+  const statHealthFill = document.getElementById('statHealthFill');
+  const statHungerFill = document.getElementById('statHungerFill');
+  const statThirstFill = document.getElementById('statThirstFill');
+  const statMentalFill = document.getElementById('statMentalFill');
+  const statsPanel = document.getElementById('statsPanel');
+  const statsToggleBtn = document.getElementById('statsToggleBtn');
+  const statsPanelBody = document.getElementById('statsPanelBody');
+  const gameOverOverlay = document.getElementById('gameOverOverlay');
+  const gameOverMessage = document.getElementById('gameOverMessage');
+  const gameOverBackBtn = document.getElementById('gameOverBackBtn');
 
    if(!openingScreen || 
       !gameCanvas || 
@@ -48,12 +59,41 @@ function initGameOpening() {
       !interactionTitle || 
       !interactionPrompt || 
       !interactionActions || 
-      !phoneNotification || 
+      !phoneNotification ||
+      !phoneNotificationOkBtn || 
       !statHealth || 
       !statHunger || 
       !statThirst || 
-      !statMental
+      !statMental ||
+      !statHealthFill ||
+      !statHungerFill ||
+      !statThirstFill ||
+      !statMentalFill ||
+      !statsPanel ||
+      !statsToggleBtn ||
+      !statsPanelBody  || 
+      !gameOverOverlay ||
+      !gameOverMessage ||
+      !gameOverBackBtn
     ) return;
+
+
+    function returnToOpeningScreen() {
+    clearStoryTick();
+    clearSceneZeroTimers();
+    gameCanvas.style.display = 'none';
+    sceneZeroOverlay.style.display = 'none';
+    sceneZeroOverlay.classList.remove('active');
+    storyScene.style.display = 'none';
+    phoneNotification.style.display = 'none';
+    gameOverOverlay.style.display = 'none';
+    interactionActions.innerHTML = '';
+    setNarration('');
+    setStatsPanelCollapsed(false);
+    resetStoryState();
+    openingScreen.style.display = 'flex';
+    isGameOver = false;
+  }
 
   const sceneZeroLines = [
     'You wake up to a life that is finally yours',
@@ -66,10 +106,10 @@ function initGameOpening() {
    let storyTick = null;
   const storyState = {
     scene: 'bedroom',
-    health: 72,
-    hunger: 46,
-    thirst: 43,
-    mental: 32,
+    health: 100,
+    hunger: 100,
+    thirst: 100,
+    mental: 100,
     responsibilityHabit: 0,
     currentContext: 'bed'
   };
@@ -79,11 +119,74 @@ function initGameOpening() {
   }
 
   function updateStats() {
-    statHealth.textContent = storyState.health;
-    statHunger.textContent = storyState.hunger;
-    statThirst.textContent = storyState.thirst;
-    statMental.textContent = storyState.mental;
+    statHealth.textContent = `${storyState.health}%`;
+    statHunger.textContent = `${storyState.hunger}%`;
+    statThirst.textContent = `${storyState.thirst}%`;
+    statMental.textContent = `${storyState.mental}%`;
+
+    statHealthFill.style.width = `${storyState.health}%`;
+    statHungerFill.style.width = `${storyState.hunger}%`;
+    statThirstFill.style.width = `${storyState.thirst}%`;
+    statMentalFill.style.width = `${storyState.mental}%`;
   }
+  
+  if (!isGameOver && (storyState.health <= 0 || storyState.hunger <= 0 || storyState.thirst <= 0 || storyState.mental <= 0)) {
+    triggerGameOver();
+  }
+  
+
+  function resetStoryState() {
+    storyState.scene = 'bedroom';
+    storyState.health = 100;
+    storyState.hunger = 100;
+    storyState.thirst = 100;
+    storyState.mental = 100;
+    storyState.responsibilityHabit = 0;
+    storyState.currentContext = 'bed';
+    updateStats();
+  }
+
+  function returnToOpeningScreen() {
+    clearStoryTick();
+    clearSceneZeroTimers();
+    gameCanvas.style.display = 'none';
+    sceneZeroOverlay.style.display = 'none';
+    sceneZeroOverlay.classList.remove('active');
+    storyScene.style.display = 'none';
+    phoneNotification.style.display = 'none';
+    gameOverOverlay.style.display = 'none';
+    interactionActions.innerHTML = '';
+    setNarration('');
+    setStatsPanelCollapsed(false);
+    resetStoryState();
+    openingScreen.style.display = 'flex';
+    isGameOver = false;
+  }
+
+  function triggerGameOver() {
+    if (isGameOver) return;
+    isGameOver = true;
+    clearStoryTick();
+    phoneNotification.style.display = 'none';
+    gameOverMessage.textContent = 'A stat reached 0%. Returning to opening screen...';
+    gameOverOverlay.style.display = 'flex';
+
+    setTimeout(() => {
+      returnToOpeningScreen();
+    }, 1800);
+  }
+
+  function setStatsPanelCollapsed(collapsed) {
+    statsPanel.classList.toggle('collapsed', collapsed);
+    statsToggleBtn.setAttribute('aria-expanded', String(!collapsed));
+    statsToggleBtn.textContent = collapsed ? 'Show Stats' : 'Hide Stats';
+  }
+
+  statsToggleBtn.addEventListener('click', () => {
+    const isCollapsed = statsPanel.classList.contains('collapsed');
+    setStatsPanelCollapsed(!isCollapsed);
+  });
+
 
   function setNarration(text) {
     storyNarration.textContent = text;
@@ -110,6 +213,15 @@ function initGameOpening() {
       storyTick = null;
     }
   }
+
+
+  phoneNotificationOkBtn.addEventListener('click', () => {
+    phoneNotification.style.display = 'none';
+  });
+
+  gameOverBackBtn.addEventListener('click', () => {
+   returnToOpeningScreen();
+  });
 
   function showHouseIntro() {
     storyState.scene = 'house';
@@ -221,8 +333,8 @@ function initGameOpening() {
     gameCanvas.style.display = 'none';
     storyScene.style.display = 'block';
     phoneNotification.style.display = 'block';
+    gameOverOverlay.style.display = 'none';
     updateStats();
-    setNarration('Ambient: distant traffic, a refrigerator hum, birds outside. Ceiling fan slowly spinning.');
 
     setInteraction('Interactable: Bed', 'Prompt: Get up / Stay a moment', [
       {
@@ -250,7 +362,7 @@ function initGameOpening() {
     sceneZeroTimeouts = [];
   }
 
-  function typeWriterLine(line, lineDelay = 40) {
+  function typeWriterLine(line, lineDelay = 60) {
     return new Promise((resolve) => {
       let charIndex = 0;
       const typeNext = () => {
@@ -321,12 +433,13 @@ function initGameOpening() {
     resizeGameCanvas();
   });
 
-}
 
-setInterval(updateDate, 60000);
-updateDate();
-handleAppResize();
-initGameOpening();
-window.addEventListener('resize', handleAppResize);
-window.addEventListener('orientationchange', handleAppResize);
-document.addEventListener('fullscreenchange', handleAppResize);
+
+  setInterval(updateDate, 60000);
+  updateDate();
+  handleAppResize();
+  initGameOpening();
+  window.addEventListener('resize', handleAppResize);
+  window.addEventListener('orientationchange', handleAppResize);
+  document.addEventListener('fullscreenchange', handleAppResize);
+}

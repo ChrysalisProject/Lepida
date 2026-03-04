@@ -618,6 +618,8 @@ input {
   overflow: hidden;
   background: #111;
   color: #fff;
+  font-family: "Press Start 2P", system-ui;
+  image-rendering: pixelated;
 }
 
 .storyBackground {
@@ -629,81 +631,158 @@ input {
   filter: brightness(0.78);
 }
 
-.fanSpinner {
+.gameOverOverlay {
   position: absolute;
-  top: 14%;
-  left: 50%;
-  width: 130px;
-  height: 130px;
-  margin-left: -65px;
-  border-radius: 50%;
-  border: 3px solid rgba(255,255,255,0.35);
-  box-shadow: 0 0 0 12px rgba(255,255,255,0.08) inset;
-  animation: fanSpin 10s linear infinite;
-  z-index: 2;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #000;
+  z-index: 20;
 }
 
-.fanSpinner::before,
-.fanSpinner::after {
-  content: "";
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  width: 8px;
-  height: 55px;
-  background: rgba(255,255,255,0.42);
-  transform-origin: 50% 0;
+.gameOverBox {
+  width: min(720px, 92%);
+  background: transparent;
+  border: 3px solid #f8f8f8;
+  padding: 24px;
+  text-align: center;
 }
 
-.fanSpinner::before {
-  transform: translate(-50%, -50%) rotate(0deg);
+.gameOverBox h2 {
+  margin: 0 0 16px;
+  color: #ff6b6b;
+  font-size: clamp(16px, 1.8vw, 24px);
 }
 
-.fanSpinner::after {
-  transform: translate(-50%, -50%) rotate(90deg);
+.gameOverBox p {
+  margin: 0 0 18px;
+  font-size: clamp(10px, 0.85vw, 12px);
+  line-height: 1.7;
 }
 
-@keyframes fanSpin {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
+.gameOverBackBtn {
+  border: 2px solid #f8f8f8;
+  background: #1f2832;
+  color: #fff;
+  font-family: "Press Start 2P", system-ui;
+  font-size: clamp(9px, 0.75vw, 11px);
+  text-transform: uppercase;
+  padding: 10px 14px;
+  cursor: pointer;
+}
+
+.gameOverBackBtn:hover,
+.gameOverBackBtn:focus-visible {
+  background: #4a5d73;
 }
 
 .statsPanel {
   position: absolute;
   top: 14px;
   left: 14px;
-  background: rgba(7, 16, 22, 0.72);
-  border: 1px solid rgba(255,255,255,0.25);
+  width: min(300px, 46%);
+  background: #1f2832;
+  border: 3px solid #0a0e14;
+  outline: 2px solid #f8f8f8;
   padding: 10px 12px;
-  line-height: 1.6;
-  font-size: 12px;
+  font-size: 10px;
+  line-height: 1.35;
+  letter-spacing: 0.04em;
+  box-shadow: 6px 6px 0 rgba(0, 0, 0, 0.45);
   z-index: 3;
 }
+
+.statsToggleBtn {
+  width: 100%;
+  margin-bottom: 8px;
+  border: 2px solid #0a0e14;
+  background: #4a5d73;
+  color: #fff;
+  padding: 7px 8px;
+  font-size: 10px;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  font-family: "Press Start 2P", system-ui;
+  cursor: pointer;
+}
+
+.statsToggleBtn:hover,
+.statsToggleBtn:focus-visible {
+  background: #657d99;
+}
+
+.statsPanel.collapsed .statsPanelBody {
+  display: none;
+}
+
+.statsPanel.collapsed .statsToggleBtn {
+  margin-bottom: 0;
+}
+
+.statRow {
+  display: grid;
+  gap: 5px;
+  margin-bottom: 8px;
+}
+
+.statRow:last-child {
+  margin-bottom: 0;
+}
+
+.statLabel {
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.statTrack {
+  width: 100%;
+  height: 12px;
+  background: #0f141c;
+  border: 2px solid #f8f8f8;;
+}
+
+.statFill {
+  height: 100%;
+  width: 100%;
+}
+
+.statFillHealth { background: #4bd269; }
+.statFillHunger { background: #f2be3f; }
+.statFillThirst { background: #48a4ff; }
+.statFillMental { background: #a878e8; }
 
 .phoneNotification {
   position: absolute;
   top: 14px;
   right: 14px;
-  width: min(340px, 40%);
-  background: rgba(11, 24, 35, 0.85);
-  border-left: 3px solid #ffde59;
+  width: min(360px, 44%);
+  background: #1f2832;
+  border: 3px solid #0a0e14;
+  outline: 2px solid #f8f8f8;
   padding: 10px 12px;
-  font-size: 12px;
+  font-size: 10px;
+  line-height: 1.5;
+  box-shadow: 6px 6px 0 rgba(0, 0, 0, 0.45);
   z-index: 3;
 }
 
-.storyNarration {
-  position: absolute;
-  left: 50%;
-  bottom: 110px;
-  transform: translateX(-50%);
-  width: min(90%, 920px);
-  min-height: 56px;
-  background: rgba(0,0,0,0.62);
-  border: 1px solid rgba(255,255,255,0.24);
-  padding: 14px 16px;
-  font-size: 14px;
-  z-index: 3;
+.phoneNotificationBtn {
+  margin-top: 8px;
+  border: 2px solid #0a0e14;
+  background: #4a5d73;
+  color: #fff;
+  font-family: "Press Start 2P", system-ui;
+  font-size: 10px;
+  text-transform: uppercase;
+  padding: 6px 10px;
+  cursor: pointer;
+}
+
+.phoneNotificationBtn:hover,
+.phoneNotificationBtn:focus-visible {
+  background: #657d99;
 }
 
 .interactionPanel {
@@ -712,16 +791,21 @@ input {
   bottom: 14px;
   transform: translateX(-50%);
   width: min(90%, 920px);
-  background: rgba(12, 18, 22, 0.88);
-  border: 1px solid rgba(255,255,255,0.22);
+  background: #1f2832;
+  border: 3px solid #0a0e14;
+  outline: 2px solid #f8f8f8;
   padding: 10px 14px;
+  box-shadow: 6px 6px 0 rgba(0, 0, 0, 0.45);
   z-index: 3;
 }
 
 .interactionPanel h3,
 .interactionPanel p {
-  margin: 0 0 6px;
+  margin: 0 0 8px;
+  font-size: clamp(9px, 0.75vw, 11px);
+  line-height: 1.55;
 }
+
 
 .interactionActions {
   display: flex;
@@ -730,17 +814,20 @@ input {
 }
 
 .storyBtn {
-  border: 1px solid rgba(255,255,255,0.3);
-  background: rgba(255,255,255,0.09);
+  border: 2px solid #0a0e14;
+  background: #4a5d73;
   color: #fff;
   padding: 8px 10px;
-  border-radius: 6px;
+  font-family: "Press Start 2P", system-ui;
+  font-size: clamp(8px, 0.68vw, 10px);
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
   cursor: pointer;
 }
 
 .storyBtn:hover,
 .storyBtn:focus-visible {
-  background: rgba(255,255,255,0.2);
+  background: #657d99;
 }
 
 
