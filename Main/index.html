@@ -127,16 +127,32 @@
         <div id="storyScene" class="storyScene" style="display:none;" aria-live="polite">
           <img id="storyBackground" class="storyBackground" src="Assets/Backgrounds/Interior(Background).png" alt="Bedroom interior" />
           
-          <div class="statsPanel">
-            <div><strong>Health:</strong> <span id="statHealth">72</span></div>
-            <div><strong>Hunger:</strong> <span id="statHunger">46</span></div>
-            <div><strong>Thirst:</strong> <span id="statThirst">43</span></div>
-            <div><strong>Mental Meter:</strong> <span id="statMental">32</span> <small>(low but stable)</small></div>
+          <div id="statsPanel" class="statsPanel" aria-label="Player stats">
+            <button id="statsToggleBtn" class="statsToggleBtn" type="button" aria-expanded="true" aria-controls="statsPanelBody">Hide Stats</button>
+            <div id="statsPanelBody" class="statsPanelBody">
+            <div class="statRow">
+              <div class="statLabel"><strong>Health</strong> <span id="statHealth">100%</span></div>
+              <div class="statTrack"><div id="statHealthFill" class="statFill statFillHealth"></div></div>
+            </div>
+            <div class="statRow">
+              <div class="statLabel"><strong>Hunger</strong> <span id="statHunger">100%</span></div>
+              <div class="statTrack"><div id="statHungerFill" class="statFill statFillHunger"></div></div>
+            </div>
+            <div class="statRow">
+              <div class="statLabel"><strong>Thirst</strong> <span id="statThirst">100%</span></div>
+              <div class="statTrack"><div id="statThirstFill" class="statFill statFillThirst"></div></div>
+            </div>
+            <div class="statRow">
+              <div class="statLabel"><strong>Mental</strong> <span id="statMental">100%</span></div>
+              <div class="statTrack"><div id="statMentalFill" class="statFill statFillMental"></div></div>
+            </div>
+            </div>
           </div>
 
           <div id="phoneNotification" class="phoneNotification" style="display:none;">
             <strong>Phone notification</strong>
             <p><strong>Reminder:</strong> First day of work starts today.<br>Topic: <em>Money doesn’t manage itself.</em></p>
+            <button id="phoneNotificationOkBtn" class="phoneNotificationBtn" type="button">OK</button>
           </div>
 
           <div class="storyNarration" id="storyNarration"></div>

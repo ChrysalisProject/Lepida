@@ -34,25 +34,39 @@ function initGameOpening() {
   const statHealth = document.getElementById('statHealth');
   const statHunger = document.getElementById('statHunger');
   const statThirst = document.getElementById('statThirst');
-  const statMental = document.getElementById('statMental');
+  const statMental = document.getElementById('statMental');  
+  const statHealthFill = document.getElementById('statHealthFill');
+  const statHungerFill = document.getElementById('statHungerFill');
+  const statThirstFill = document.getElementById('statThirstFill');
+  const statMentalFill = document.getElementById('statMentalFill');
+  const statsPanel = document.getElementById('statsPanel');
+  const statsToggleBtn = document.getElementById('statsToggleBtn');
+  const statsPanelBody = document.getElementById('statsPanelBody');
 
-   if(!openingScreen || 
-      !gameCanvas || 
-      !newGameBtn || 
-      !continueBtn || 
-     !creditsBtn || 
-     !sceneZeroOverlay || 
-     !sceneZeroText ||  
-      !storyScene || 
-      !storyNarration || 
-      !interactionTitle || 
-      !interactionPrompt || 
-      !interactionActions || 
-      !phoneNotification || 
-      !statHealth || 
-      !statHunger || 
-      !statThirst || 
-      !statMental
+  if(!openingScreen || 
+    !gameCanvas || 
+    !newGameBtn || 
+    !continueBtn || 
+    !creditsBtn || 
+    !sceneZeroOverlay || 
+    !sceneZeroText ||  
+    !storyScene || 
+    !storyNarration || 
+    !interactionTitle || 
+    !interactionPrompt || 
+    !interactionActions || 
+    !phoneNotification || 
+    !statHealth || 
+    !statHunger || 
+    !statThirst || 
+    !statMental ||
+    !statHealthFill ||
+    !statHungerFill ||
+    !statThirstFill ||
+    !statMentalFill ||
+    !statsPanel ||
+    !statsToggleBtn ||
+    !statsPanelBody
     ) return;
 
   const sceneZeroLines = [
@@ -66,10 +80,10 @@ function initGameOpening() {
    let storyTick = null;
   const storyState = {
     scene: 'bedroom',
-    health: 72,
-    hunger: 46,
-    thirst: 43,
-    mental: 32,
+    health: 100,
+    hunger: 100,
+    thirst: 100,
+    mental: 100,
     responsibilityHabit: 0,
     currentContext: 'bed'
   };
@@ -79,11 +93,28 @@ function initGameOpening() {
   }
 
   function updateStats() {
-    statHealth.textContent = storyState.health;
-    statHunger.textContent = storyState.hunger;
-    statThirst.textContent = storyState.thirst;
-    statMental.textContent = storyState.mental;
+    statHealth.textContent = `${storyState.health}%`;
+    statHunger.textContent = `${storyState.hunger}%`;
+    statThirst.textContent = `${storyState.thirst}%`;
+    statMental.textContent = `${storyState.mental}%`;
+
+    statHealthFill.style.width = `${storyState.health}%`;
+    statHungerFill.style.width = `${storyState.hunger}%`;
+    statThirstFill.style.width = `${storyState.thirst}%`;
+    statMentalFill.style.width = `${storyState.mental}%`;
   }
+
+  function setStatsPanelCollapsed(collapsed) {
+    statsPanel.classList.toggle('collapsed', collapsed);
+    statsToggleBtn.setAttribute('aria-expanded', String(!collapsed));
+    statsToggleBtn.textContent = collapsed ? 'Show Stats' : 'Hide Stats';
+  }
+
+  statsToggleBtn.addEventListener('click', () => {
+    const isCollapsed = statsPanel.classList.contains('collapsed');
+    setStatsPanelCollapsed(!isCollapsed);
+  });
+
 
   function setNarration(text) {
     storyNarration.textContent = text;
@@ -110,6 +141,10 @@ function initGameOpening() {
       storyTick = null;
     }
   }
+
+  phoneNotificationOkBtn.addEventListener('click', () => {
+    phoneNotification.style.display = 'none';
+  });
 
   function showHouseIntro() {
     storyState.scene = 'house';
@@ -222,8 +257,8 @@ function initGameOpening() {
     storyScene.style.display = 'block';
     phoneNotification.style.display = 'block';
     updateStats();
-    setNarration('Ambient: distant traffic, a refrigerator hum, birds outside. Ceiling fan slowly spinning.');
 
+    
     setInteraction('Interactable: Bed', 'Prompt: Get up / Stay a moment', [
       {
         label: 'Stay a moment',
