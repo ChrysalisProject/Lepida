@@ -76,8 +76,10 @@ function initGameOpening() {
     '- Good luck'
   ];
 
+
   let sceneZeroTimeouts = [];
-   let storyTick = null;
+  let storyTick = null;
+  let narrationTypewriterTimeout = null;
   const storyState = {
     scene: 'bedroom',
     health: 100,
@@ -116,8 +118,40 @@ function initGameOpening() {
   });
 
 
-  function setNarration(text) {
-    storyNarration.textContent = text;
+  function setNarration(text, speaker = 'Narrator') {
+    if (narrationTypewriterTimeout) {
+      clearTimeout(narrationTypewriterTimeout);
+      narrationTypewriterTimeout = null;
+    }
+
+    storyNarration.innerHTML = '';
+
+    const speakerEl = document.createElement('div');
+    speakerEl.className = 'storyNarrationSpeaker';
+    speakerEl.textContent = speaker;
+
+    const lineEl = document.createElement('p');
+    lineEl.className = 'storyNarrationLine typing';
+
+    storyNarration.appendChild(speakerEl);
+    storyNarration.appendChild(lineEl);
+
+    let index = 0;
+    const typingDelay = 18;
+
+    function typeNextCharacter() {
+      if (index >= text.length) {
+        lineEl.classList.remove('typing');
+        narrationTypewriterTimeout = null;
+        return;
+      }
+
+      lineEl.textContent += text.charAt(index);
+      index += 1;
+      narrationTypewriterTimeout = setTimeout(typeNextCharacter, typingDelay);
+    }
+
+    typeNextCharacter();
   }
 
   function setInteraction(title, prompt, options) {
@@ -149,7 +183,8 @@ function initGameOpening() {
   function showHouseIntro() {
     storyState.scene = 'house';
     storyState.currentContext = 'move';
-    setNarration('They set everything up. Dishes. Furniture. Even the plants. From here on out, what happens is on me.');
+    setNarration('They set everything up; dishes, furniture, even the plants. ',
+    'From here on out, whatever happens is on me.');
 
     clearStoryTick();
     storyTick = setInterval(() => {
@@ -167,7 +202,7 @@ function initGameOpening() {
 
   function openKitchen() {
     storyState.currentContext = 'kitchen';
-    setNarration('You open the fridge. It’s half full.');
+    setNarration('This should do for now. I should really go shopping soon though');
     setInteraction('Interactable: Kitchen (Food)', 'Prompt Options: Eat a quick meal / Drink water / Close fridge', [
       {
         label: 'Eat a quick meal',
@@ -199,7 +234,7 @@ function initGameOpening() {
 
   function openSink() {
     storyState.currentContext = 'sink';
-    setNarration('Some dishes are clean. Some aren’t.');
+    setNarration('I forgot to clean all my dishes yesterday');
     setInteraction('Interactable: Sink (Dishes)', 'Prompt Options: Wash dishes / Ignore', [
       {
         label: 'Wash dishes',
@@ -225,7 +260,7 @@ function initGameOpening() {
 
   function openPlants() {
     storyState.currentContext = 'plants';
-    setNarration('Small plants sit near the window.');
+    setNarration('My plants look good, but they might need some water soon');
     setInteraction('Interactable: Plants (Window)', 'Prompt Options: Water Plants / Inspect / Ignore', [
       {
         label: 'Water Plants',
@@ -233,7 +268,7 @@ function initGameOpening() {
           storyState.mental = clamp(storyState.mental + 3, 0, 100);
           storyState.responsibilityHabit += 1;
           updateStats();
-          setNarration('One small thing cared for. Responsibility Habit +1.');
+          setNarration('One small thing cared for, and now they will not die');
         }
       },
       {

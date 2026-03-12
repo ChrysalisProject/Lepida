@@ -739,25 +739,64 @@ input {
 .storyNarration {
   position: absolute;
   left: 50%;
-  bottom: 110px;
+  bottom: 20px;
   transform: translateX(-50%);
-  width: min(90%, 920px);
-  min-height: 56px;
-  background: rgba(0,0,0,0.62);
-  border: 1px solid rgba(255,255,255,0.24);
-  padding: 14px 16px;
+  width: min(76%, 880px);
+  min-height: 116px;
+  background: rgba(255, 255, 255, 0.95);
+  color: #10131a;
+  border: 3px solid #10131a;
+  border-radius: 4px;
+  padding: 14px 18px;
+  box-shadow: 8px 8px 0 rgba(0, 0, 0, 0.4);
   font-family: "Press Start 2P", system-ui;
   font-size: 14px;
   z-index: 3;
 }
 
+.storyNarrationSpeaker {
+  margin-bottom: 8px;
+  font-family: "Press Start 2P", system-ui;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: #2b3342;
+}
+
+.storyNarrationLine {
+  margin: 0;
+  min-height: 1.8em;
+  font-family: "Press Start 2p";
+  font-size: clamp(28px, 2.4vw, 34px);
+  line-height: 1.15;
+  letter-spacing: 0.02em;
+}
+
+.storyNarrationLine.typing::after {
+  content: "";
+  display: inline-block;
+  width: 0.55ch;
+  height: 0.95em;
+  margin-left: 0.1ch;
+  vertical-align: -0.05em;
+  background: #10131a;
+  animation: narrationCaret 0.9s steps(1) infinite;
+}
+
+@keyframes narrationCaret {
+  50% {
+    opacity: 0;
+  }
+}
+
 .interactionPanel {
   position: absolute;
-  left: 50%;
+  right: 14px;
   bottom: 14px;
-  transform: translateX(-50%);
-  width: min(90%, 920px);
-  background: rgba(12, 18, 22, 0.88);
+  width: min(36%, 420px);
+  max-height: 62%;
+  overflow-y: auto;
+  background: rgba(12, 18, 22, 0.9);
   border: 1px solid rgba(255,255,255,0.22);
   padding: 10px 14px;
   font-family: "Press Start 2P", system-ui;
@@ -1021,5 +1060,21 @@ input {
 
   #lessonDetailScreen .lessonWrapper {
     padding: 18px;
+  }
+
+  @media (max-width: 1100px) {
+    .storyNarration {
+      width: min(92%, 880px);
+      bottom: 12px;
+    }
+
+    .interactionPanel {
+      left: 50%;
+      right: auto;
+      bottom: 150px;
+      transform: translateX(-50%);
+      width: min(92%, 880px);
+      max-height: 38%;
+    }
   }
 }
