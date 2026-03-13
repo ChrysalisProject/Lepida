@@ -183,8 +183,7 @@ function initGameOpening() {
   function showHouseIntro() {
     storyState.scene = 'house';
     storyState.currentContext = 'move';
-    setNarration('They set everything up; dishes, furniture, even the plants. ',
-    'From here on out, whatever happens is on me.');
+    setNarration('They set everything up; dishes, furniture, even the plants. From here on out, whatever happens is on me.');
 
     clearStoryTick();
     storyTick = setInterval(() => {
