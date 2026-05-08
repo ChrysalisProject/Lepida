@@ -14,14 +14,15 @@ html, body {
   --topBarHeight: 80px;
   --app-vh: 1vh;
   --navbarHeight: 33px;
-  --screenGutter: 20px;
+  --screenGutter: clamp(12px, 2.5vw, 32px);
 }
 
 #appRoot {
   position:relative;
-  width: min(100%, 1400px);
+  width: 100%;
+  max-width: none;
   min-height: 100dvh;
-  margin: auto 0;
+  margin: 0 auto;
   background-color: #73a1b2;
 }
 
@@ -133,6 +134,7 @@ html, body {
 #loginScreen {
   min-height: calc(100dvh - var(--navbarHeight));
   width: 100%;
+  max-width: 100vw;
 
   display: flex;
   flex-direction: column;
@@ -151,6 +153,11 @@ html, body {
   justify-content: center;
 }
 
+#lessonsSkillTitle,
+#lessonDetailTitle {
+  position: relative;
+  left: var(--title-offset-x, 0px);
+}
 
 /* Full-screen login card */
 .loginCard {
@@ -262,7 +269,7 @@ input {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
   gap: 20px;
-  width: min(1150px, 100%);
+  width: min(1400px, 100%);
   margin: 0 auto;
   align-content: start;
 }
@@ -320,7 +327,7 @@ input {
 /* Lesson cards (skills-style) */
 .lessonCard {
   display: flex;
-  width: min(1350px, 100%);
+  width: min(1600px, 100%);
   flex-direction: column;
   justify-content: center;
   background: rgba(255,255,255,0.15);
@@ -433,8 +440,16 @@ input {
   background-color: rgba(255,255,255,0.1);
   border-radius: 12px;
   padding: 8px 12px;
+  margin-inline: auto;
   margin-bottom: 10px;
-  width: min(1400px, 100%);
+  width: min(3000px, 75%);
+}
+
+#progressList {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .progressLabel {
@@ -446,7 +461,7 @@ input {
 
 .progressBarContainer {
   flex: 1;
-  height: 16px;
+  height: 15px;
   background-color: rgba(255,255,255,0.2);
   border-radius: 8px;
   overflow: hidden;
@@ -470,7 +485,7 @@ input {
 
 /* Game */
 .gameShell {
-  width: min(1150px, 100%);
+  width: min(1400px, 100%);
   aspect-ratio: 16 / 9;
   max-height: min(72vh, calc(100dvh - var(--topBarHeight) - var(--navbarHeight) - 64px));
   position: relative;
@@ -497,7 +512,6 @@ input {
   justify-content: flex-start;
   align-items: flex-start;
   display: flex;
-  padding: 185px 0 0 165px;
   z-index: 2;
 }
 
@@ -506,7 +520,7 @@ input {
   inset: 0;
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  object-fit: fill;
   object-position: center;
   border-radius: 8px;
   z-index: 0;
@@ -601,6 +615,42 @@ input {
 }
 
 .sceneZeroText {
+  margin: 0;
+  font-family: "Press Start 2P", system-ui;
+  font-size: clamp(12px, 1.35vw, 20px);
+  color: #f1f1f1;
+  line-height: 1.8;
+  white-space: pre-wrap;
+  min-height: 7.2em;
+  text-align: left;
+}
+
+.sceneCreditsOverlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 40px;
+  background: #000;
+  opacity: 0;
+  transition: opacity 1s ease;
+  z-index: 3;
+}
+
+.sceneCreditsOverlay.active {
+  opacity: 1;
+}
+
+.sceneCreditsBox {
+  width: min(860px, 100%);
+  padding: clamp(20px, 4vw, 40px);
+  border: 2px solid rgba(255, 255, 255, 0.6);
+  background: rgba(0, 0, 0, 0.55);
+  box-shadow: 0 0 30px rgba(0, 0, 0, 0.45);
+}
+
+.sceneCreditsText {
   margin: 0;
   font-family: "Press Start 2P", system-ui;
   font-size: clamp(12px, 1.35vw, 20px);
@@ -894,10 +944,23 @@ input {
 }
 
 /* Back Button */
+.headerRow {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: min(1400px, 100%);
+}
+
+.headerRow > h2 {
+  margin: 0;
+  position: relative;
+  left: var(--title-offset-x, 0px);
+}
+
 .back {
-  position: sticky;
-  top: calc(var(--topBarHeight)+8px);
-  left: 0;
+  position: relative;
+  top: 0;
+  left: var(--back-offset-x, 0px);
   font-size: 1rem;
   padding: 5px 10px;
   border: none;
@@ -912,7 +975,7 @@ input {
 #completeLessonBtn {
   position: sticky;           /* position relative to the screen */
   bottom: calc(var(--navbarHeight)+12px);                 /* distance from bottom */
-  right: 0;                   /* distance from left */
+  left: 0;                   /* distance from left */
   font-size: 1rem;              /* same as back button */
   padding: 10px 20px;            /* same as back button */
   border: none;

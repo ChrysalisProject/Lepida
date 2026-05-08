@@ -25,6 +25,8 @@ function initGameOpening() {
   const creditsBtn = document.getElementById('creditsBtn');
   const sceneZeroOverlay = document.getElementById('sceneZeroOverlay');
   const sceneZeroText = document.getElementById('sceneZeroText');
+  const sceneCreditsOverlay = document.getElementById('sceneCreditsOverlay');
+  const sceneCreditsText = document.getElementById('sceneCreditsText');
   const storyScene = document.getElementById('storyScene');
   const storyNarration = document.getElementById('storyNarration');
   const interactionTitle = document.getElementById('interactionTitle');
@@ -49,7 +51,9 @@ function initGameOpening() {
     !continueBtn || 
     !creditsBtn || 
     !sceneZeroOverlay || 
-    !sceneZeroText ||  
+    !sceneZeroText || 
+    !sceneCreditsOverlay ||
+    !sceneCreditsText|| 
     !storyScene || 
     !storyNarration || 
     !interactionTitle || 
@@ -67,7 +71,8 @@ function initGameOpening() {
     !statsPanel ||
     !statsToggleBtn ||
     !statsPanelBody
-    ) return;
+  ) return;
+
 
   const sceneZeroLines = [
     'You wake up to a life that is finally yours',
@@ -76,7 +81,33 @@ function initGameOpening() {
     '- Good luck'
   ];
 
+  const sceneCreditLines = [
+    'The lesson was never only about the tasks.',
+    'Not the oil changes.',
+    'Not the budgeting spreadsheets.',
+    'Not the interviews, repairs, deadlines, or numbers.',
+    'It was about learning how to continue forward',
+    'in a world that rarely explains itself.',
+    'You entered uncertain.',
+    'Most people do.',
+    'But knowledge changes people slowly.',
+    'One choice at a time.',
+    'One mistake corrected.',
+    'One problem understood.',
+    'And somewhere along the way,',
+    'survival became confidence.',
 
+    'Created by: The Chrysalis Project',
+    'Game Design and Program: Jadhiel Tineo',
+    'Educational Reaserch: Alejandro Torres',
+    'Art and Interface Design: Daniel Santiago',
+    'Concept Design: Tasiya Nelson',
+
+    'Special Thanks:',
+    'To the teachers, mentors, friends, and young people still trying to figure life out one step at a time.'
+  ];
+
+  let sceneCreditsTimeouts = [];
   let sceneZeroTimeouts = [];
   let storyTick = null;
   let narrationTypewriterTimeout = null;
@@ -319,7 +350,14 @@ function initGameOpening() {
     sceneZeroTimeouts = [];
   }
 
-  function typeWriterLine(line, lineDelay = 40) {
+  function clearSceneCreditsTimers() {
+    sceneCreditsTimeouts.forEach((timerId) => clearTimeout(timerId));
+    sceneCreditsTimeouts = [];
+  }
+
+
+
+  function typeWriterLineSceneZero(line, lineDelay = 40) {
     return new Promise((resolve) => {
       let charIndex = 0;
       const typeNext = () => {
@@ -339,6 +377,26 @@ function initGameOpening() {
     });
   }
 
+  function typeWriterLine(line, lineDelay = 40) {
+    return new Promise((resolve) => {
+      let charIndex = 0;
+      const typeNext = () => {
+        if (charIndex < line.length) {
+          sceneCreditsText.textContent += line.charAt(charIndex);
+          charIndex += 1;
+          const timeoutId = setTimeout(typeNext, lineDelay);
+          sceneCreditsTimeouts.push(timeoutId);
+          return;
+        }
+
+        sceneCreditsText.textContent += '\n\n';
+        resolve();
+      };
+
+      typeNext();
+    });
+  }
+
   async function playSceneZero() {
     clearSceneZeroTimers();
     openingScreen.style.display = 'none';
@@ -351,7 +409,7 @@ function initGameOpening() {
     });
 
     for (const line of sceneZeroLines) {
-      await typeWriterLine(line);
+      await typeWriterLineSceneZero(line);
       await new Promise((resolve) => {
         const timeoutId = setTimeout(resolve, 500);
         sceneZeroTimeouts.push(timeoutId);
@@ -372,6 +430,39 @@ function initGameOpening() {
     sceneZeroTimeouts.push(fadeOutDelay);
   }
 
+  async function playsceneCredits() {
+    clearSceneCreditsTimers();
+    openingScreen.style.display = 'none';
+    gameCanvas.style.display = 'none';
+    sceneCreditsText.textContent = '';
+    sceneCreditsOverlay.style.display = 'flex';
+
+    requestAnimationFrame(() => {
+      sceneCreditsOverlay.classList.add('active');
+    });
+
+    for (const line of sceneCreditLines) {
+      await typeWriterLine(line);
+      await new Promise((resolve) => {
+        const timeoutId = setTimeout(resolve, 500);
+        sceneCreditsTimeouts.push(timeoutId);
+      });
+    }
+
+    const fadeOutDelay = setTimeout(() => {
+      sceneCreditsOverlay.classList.remove('active');
+
+      const hideOverlayDelay = setTimeout(() => {
+        sceneCreditsOverlay.style.display = 'none';
+        initGameOpening();
+      }, 1000);
+
+      sceneCreditsTimeouts.push(hideOverlayDelay);
+    }, 1200);
+
+    sceneCreditsTimeouts.push(fadeOutDelay);
+  }
+
   newGameBtn.addEventListener('click', () => {
     playSceneZero();
   });
@@ -384,10 +475,7 @@ function initGameOpening() {
   });
 
   creditsBtn.addEventListener('click', () => {
-    openingScreen.style.display = 'none';
-    sceneZeroOverlay.style.display = 'none';
-    gameCanvas.style.display = 'block';
-    resizeGameCanvas();
+    playsceneCredits();
   });
 
 }

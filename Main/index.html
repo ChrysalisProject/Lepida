@@ -72,8 +72,8 @@
   <!-- LESSONS -->
       <div id="lessonsScreen" class="screen" style="display:none;">
         <div class="headerRow">
-          <button class="back" onclick="showScreen('skillsScreen')">← Back</button>
-          <h2 id="lessonsSkillTitle">Lessons</h2>
+          <button class="back" style="--back-offset-x: 24px;" onclick="showScreen('skillsScreen')">← Back</button>
+          <h2 id="lessonsSkillTitle" style="--title-offset-x : 400px">Lessons</h2>
         </div>
         <div id="lessonsList" class="grid"></div>
       </div>
@@ -82,8 +82,8 @@
   <!-- LESSON DETAIL -->
   <div id="lessonDetailScreen" class="screen" style="display:none;">
     <div class="headerRow">
-      <button class="back" onclick="showScreen('lessonsScreen')">← Back</button>
-      <h2 id="lessonDetailTitle">Lesson</h2>
+      <button class="back" style="--back-offset-x: 24px;" onclick="showScreen('lessonsScreen')">← Back</button>
+      <h2 id="lessonDetailTitle" style="--title-offset-x : 400px">Lesson</h2>
     </div>
     <div id="lessonDetailContent" class="content"></div>
     <div class="lessonActions">
@@ -112,9 +112,9 @@
         <img id="openingImage" src="Assets/Backgrounds/Game Opening.png" alt="Phytropica opening background" />
         <div class="openingMenu">
           <div class="openingActions">
-            <button id="newGameBtn" class="menuBtn openingMenuBtn" style="--btn-x: 15%; --btn-y: 41.5%;">New Game</button>
-            <button id="continueBtn" class="menuBtn openingMenuBtn" style="--btn-x: 15%; --btn-y: 62.5%;">Continue</button>
-            <button id="creditsBtn" class="menuBtn openingMenuBtn" style="--btn-x: 15%; --btn-y: 83.5%;">Credits</button>
+            <button id="newGameBtn" class="menuBtn openingMenuBtn" style="--btn-x: 15%; --btn-y: 43%;">New Game</button>
+            <button id="continueBtn" class="menuBtn openingMenuBtn" style="--btn-x: 15%; --btn-y: 61%;">Continue</button>
+            <button id="creditsBtn" class="menuBtn openingMenuBtn" style="--btn-x: 15%; --btn-y: 79%;">Credits</button>
           </div>
         </div>
       </div>
@@ -123,7 +123,11 @@
             <p id="sceneZeroText" class="sceneZeroText"></p>
           </div>
         </div>
-
+        <div id="sceneCreditsOverlay" class="sceneCreditsOverlay" aria-live="polite" style="display:none;">
+          <div class="sceneCreditsBox">
+            <p id="sceneCreditsText" class="sceneCreditsText"></p>
+          </div>
+        </div>
         <div id="storyScene" class="storyScene" style="display:none;" aria-live="polite">
           <img id="storyBackground" class="storyBackground" src="Assets/Backgrounds/Interior(Background).png" alt="Bedroom interior" />
           
@@ -209,6 +213,6 @@
   <script src="JavaScript/script.js"></script>
   <script src="JavaScript/lessons.js"></script>
   <script src="JavaScript/game.js"></script>
-
+ 
 </body>
 </html>
