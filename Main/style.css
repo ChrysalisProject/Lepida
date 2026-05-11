@@ -658,6 +658,8 @@ input {
   line-height: 1.8;
   white-space: pre-wrap;
   min-height: 7.2em;
+  max-height: min(60vh, 20em);
+  overflow-y: auto;
   text-align: left;
 }
 

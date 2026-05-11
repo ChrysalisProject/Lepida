@@ -102,11 +102,13 @@ function initGameOpening() {
     'Educational Reaserch: Alejandro Torres',
     'Art and Interface Design: Daniel Santiago',
     'Concept Design: Tasiya Nelson',
+    'Editor: Angel Aquino',
 
     'Special Thanks:',
     'To the teachers, mentors, friends, and young people still trying to figure life out one step at a time.'
   ];
 
+  const CREDITS_MAX_VISIBLE_CHARS = 500;
   let sceneCreditsTimeouts = [];
   let sceneZeroTimeouts = [];
   let storyTick = null;
@@ -355,6 +357,25 @@ function initGameOpening() {
     sceneCreditsTimeouts = [];
   }
 
+  function trimCreditsBuffer() {
+    const currentText = sceneCreditsText.textContent;
+    if (currentText.length <= CREDITS_MAX_VISIBLE_CHARS) return;
+
+    const overflow = currentText.length - CREDITS_MAX_VISIBLE_CHARS;
+    let trimIndex = currentText.indexOf('\n', overflow);
+
+    if (trimIndex === -1) {
+      trimIndex = overflow;
+    }
+
+    sceneCreditsText.textContent = currentText.slice(trimIndex).trimStart();
+  }
+
+  function appendCreditsText(text) {
+    sceneCreditsText.textContent += text;
+    trimCreditsBuffer();
+    sceneCreditsText.scrollTop = sceneCreditsText.scrollHeight;
+  }
 
 
   function typeWriterLineSceneZero(line, lineDelay = 40) {
@@ -382,14 +403,14 @@ function initGameOpening() {
       let charIndex = 0;
       const typeNext = () => {
         if (charIndex < line.length) {
-          sceneCreditsText.textContent += line.charAt(charIndex);
+          appendCreditsText(line.charAt(charIndex));
           charIndex += 1;
           const timeoutId = setTimeout(typeNext, lineDelay);
           sceneCreditsTimeouts.push(timeoutId);
           return;
         }
 
-        sceneCreditsText.textContent += '\n\n';
+        appendCreditsText('\n\n');
         resolve();
       };
 
