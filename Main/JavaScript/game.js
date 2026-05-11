@@ -475,7 +475,7 @@ function initGameOpening() {
 
       const hideOverlayDelay = setTimeout(() => {
         sceneCreditsOverlay.style.display = 'none';
-        initGameOpening();
+        openingScreen.style.display = 'block';
       }, 1000);
 
       sceneCreditsTimeouts.push(hideOverlayDelay);
