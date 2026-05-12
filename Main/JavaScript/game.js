@@ -225,17 +225,17 @@ function initGameOpening() {
       updateStats();
     }, 8000);
 
-    setInteraction('The house (Free Roam, Guided)', 'Choose where to interact first.', [
-      { label: 'Go to Kitchen (Food)', onClick: openKitchen },
-      { label: 'Go to Sink (Dishes)', onClick: openSink },
-      { label: 'Go to Plants (Window)', onClick: openPlants }
+    setInteraction('The house', 'Choose where to interact first:', [
+      { label: 'Go to Kitchen', onClick: openKitchen },
+      { label: 'Go to Sink', onClick: openSink },
+      { label: 'Go to Plants', onClick: openPlants }
     ]);
   }
 
   function openKitchen() {
     storyState.currentContext = 'kitchen';
     setNarration('This should do for now. I should really go shopping soon though');
-    setInteraction('Interactable: Kitchen (Food)', 'Prompt Options: Eat a quick meal / Drink water / Close fridge', [
+    setInteraction('Kitchen', 'Prompt Options:', [
       {
         label: 'Eat a quick meal',
         onClick: () => {
@@ -255,19 +255,19 @@ function initGameOpening() {
         }
       },
       {
-        label: 'Close fridge',
+        label: 'Leave Kitchen',
         onClick: () => {
           setNarration('I’ll deal with it later.');
+          showHouseIntro();
         }
-      },
-      { label: 'Back to free roam', onClick: showHouseIntro }
+      }
     ]);
   }
 
   function openSink() {
     storyState.currentContext = 'sink';
     setNarration('I forgot to clean all my dishes yesterday');
-    setInteraction('Interactable: Sink (Dishes)', 'Prompt Options: Wash dishes / Ignore', [
+    setInteraction('Sink', 'Prompt Options', [
       {
         label: 'Wash dishes',
         onClick: () => {
@@ -284,16 +284,16 @@ function initGameOpening() {
           storyState.mental = clamp(storyState.mental - 2, 0, 100);
           updateStats();
           setNarration('It can wait. Everything can wait.');
+          showHouseIntro();
         }
-      },
-      { label: 'Back to free roam', onClick: showHouseIntro }
+      }
     ]);
   }
 
   function openPlants() {
     storyState.currentContext = 'plants';
     setNarration('My plants look good, but they might need some water soon');
-    setInteraction('Interactable: Plants (Window)', 'Prompt Options: Water Plants / Inspect / Ignore', [
+    setInteraction('Plants', 'Prompt Options:', [
       {
         label: 'Water Plants',
         onClick: () => {
@@ -313,9 +313,9 @@ function initGameOpening() {
         label: 'Ignore',
         onClick: () => {
           setNarration('Not now.');
+          showHouseIntro();
         }
-      },
-      { label: 'Back to free roam', onClick: showHouseIntro }
+      }
     ]);
   }
 
@@ -326,7 +326,7 @@ function initGameOpening() {
     updateStats();
 
     
-    setInteraction('Interactable: Bed', 'Prompt: Get up / Stay a moment', [
+    setInteraction('Bed', 'Prompt Options:', [
       {
         label: 'Stay a moment',
         onClick: () => {
