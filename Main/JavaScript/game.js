@@ -27,7 +27,8 @@ function initGameOpening() {
   const sceneZeroText = document.getElementById('sceneZeroText');
   const sceneCreditsOverlay = document.getElementById('sceneCreditsOverlay');
   const sceneCreditsText = document.getElementById('sceneCreditsText');
-  const storyScene = document.getElementById('storyScene');
+  const storySceneOne = document.getElementById('storySceneOne');
+  const storySceneTwo = document.getElementById('storySceneTwo');
   const storyNarration = document.getElementById('storyNarration');
   const interactionTitle = document.getElementById('interactionTitle');
   const interactionPrompt = document.getElementById('interactionPrompt');
@@ -54,7 +55,8 @@ function initGameOpening() {
     !sceneZeroText || 
     !sceneCreditsOverlay ||
     !sceneCreditsText|| 
-    !storyScene || 
+    !storySceneOne ||
+    !storySceneTwo || 
     !storyNarration || 
     !interactionTitle || 
     !interactionPrompt || 
@@ -228,7 +230,29 @@ function initGameOpening() {
     setInteraction('The house', 'Choose where to interact first:', [
       { label: 'Go to Kitchen', onClick: openKitchen },
       { label: 'Go to Sink', onClick: openSink },
-      { label: 'Go to Plants', onClick: openPlants }
+      { label: 'Go to Plants', onClick: openPlants },
+      { label: 'Go to Work', onClick: startSceneTwo }
+    ]);
+  }
+
+  function showHouse() {
+    storySceneOne.style.display = 'block';
+    storyState.scene = 'Home';
+    storyState.currentContext = 'Home';
+    setNarration('Today was a long day.');
+
+    clearStoryTick();
+    storyTick = setInterval(() => {
+      storyState.hunger = clamp(storyState.hunger - 1, 0, 100);
+      storyState.thirst = clamp(storyState.thirst - 1, 0, 100);
+      updateStats();                                                                                                                                                                
+    }, 8000);
+
+    setInteraction('Home', 'Choose where to interact first:', [
+      { label: 'Go to Kitchen', onClick: openKitchen },
+      { label: 'Go to Sink', onClick: openSink },
+      { label: 'Go to Plants', onClick: openPlants },
+      { label: 'Go to Work', onClick: startSceneTwo }
     ]);
   }
 
@@ -319,9 +343,16 @@ function initGameOpening() {
     ]);
   }
 
+  function callCustomer() {}
+
+  function openLaptop() {}
+
+  function goBreak() {}
+
+
   function startSceneOne() {
     gameCanvas.style.display = 'none';
-    storyScene.style.display = 'block';
+    storySceneOne.style.display = 'block';
     phoneNotification.style.display = 'block';
     updateStats();
 
@@ -347,6 +378,27 @@ function initGameOpening() {
     ]);
   }
   
+  function startSceneTwo() {
+    storySceneTwo.style.display = 'block';
+    storyState.scene = 'Work';
+    storyState.currentContext = 'Work';
+    setNarration('Another Day at work time to do something.');
+
+    clearStoryTick();
+    storyTick = setInterval(() => {
+      storyState.hunger = clamp(storyState.hunger - 1, 0, 100);
+      storyState.thirst = clamp(storyState.thirst - 1, 0, 100);
+      updateStats();
+    }, 8000);
+
+    setInteraction('Work', 'Choose what to do:', [
+      { label: 'Make a call', onClick: callCustomer },
+      { label: 'Open laptop', onClick: openLaptop },
+      { label: 'Go on break', onClick: goBreak },
+      { label: 'Go home', onClick: showHouse }
+    ]);
+  }
+
   function clearSceneZeroTimers() {
     sceneZeroTimeouts.forEach((timerId) => clearTimeout(timerId));
     sceneZeroTimeouts = [];
