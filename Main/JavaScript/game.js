@@ -29,6 +29,8 @@ function initGameOpening() {
   const sceneCreditsText = document.getElementById('sceneCreditsText');
   const storySceneOne = document.getElementById('storySceneOne');
   const storySceneTwo = document.getElementById('storySceneTwo');
+  const sceneEndGameOverlay = document.getElementById('sceneEndGameOverlay');
+  const sceneEndGameText = document.getElementById('sceneEndGameText');
   const storyNarration = document.getElementById('storyNarration');
   const interactionTitle = document.getElementById('interactionTitle');
   const interactionPrompt = document.getElementById('interactionPrompt');
@@ -56,7 +58,9 @@ function initGameOpening() {
     !sceneCreditsOverlay ||
     !sceneCreditsText|| 
     !storySceneOne ||
-    !storySceneTwo || 
+    !storySceneTwo ||
+    !sceneEndGameOverlay ||
+    !sceneEndGameText || 
     !storyNarration || 
     !interactionTitle || 
     !interactionPrompt || 
@@ -110,7 +114,16 @@ function initGameOpening() {
     'To the teachers, mentors, friends, and young people still trying to figure life out one step at a time.'
   ];
 
+  const sceneEndGameLines = [
+    'GAME OVER!!',
+    'You tried your best',
+    'or atleast we hope you did.',
+    'Take more time and refelect on what went wrong and try again.',
+    'Just remeber you will not get a second chance in life'
+  ];
+
   const CREDITS_MAX_VISIBLE_CHARS = 500;
+  let sceneEndGameTimeouts = [];
   let sceneCreditsTimeouts = [];
   let sceneZeroTimeouts = [];
   let storyTick = null;
@@ -124,6 +137,21 @@ function initGameOpening() {
     responsibilityHabit: 0,
     currentContext: 'bed'
   };
+
+  newGameBtn.addEventListener('click', () => {
+    playSceneZero();
+  });
+
+  continueBtn.addEventListener('click', () => {
+    openingScreen.style.display = 'none';
+    sceneZeroOverlay.style.display = 'none';
+    gameCanvas.style.display = 'block';
+    resizeGameCanvas();
+  });
+
+  creditsBtn.addEventListener('click', () => {
+    StartsceneCredits();
+  });
 
   function clamp(value, min, max) {
     return Math.max(min, Math.min(max, value));
@@ -343,60 +371,25 @@ function initGameOpening() {
     ]);
   }
 
-  function callCustomer() {}
+  function callCustomer() {
+    storyState.currentContext = 'On call';
+    setNarration('Thank you for calling what can I help with today?');
+    setInteraction('Call', 'Prompt Options:', [
 
-  function openLaptop() {}
-
-  function goBreak() {}
-
-
-  function startSceneOne() {
-    gameCanvas.style.display = 'none';
-    storySceneOne.style.display = 'block';
-    phoneNotification.style.display = 'block';
-    updateStats();
-
-    
-    setInteraction('Bed', 'Prompt Options:', [
-      {
-        label: 'Stay a moment',
-        onClick: () => {
-          storyState.mental = clamp(storyState.mental + 1, 0, 100);
-          storyState.hunger = clamp(storyState.hunger - 1, 0, 100);
-          storyState.thirst = clamp(storyState.thirst - 1, 0, 100);
-          updateStats();
-          setNarration('This place is quiet. Too quiet.');
-        }
-      },
-      {
-        label: 'Get up',
-        onClick: () => {
-          phoneNotification.style.display = 'none';
-          showHouseIntro();
-        }
-      }
     ]);
   }
-  
-  function startSceneTwo() {
-    storySceneTwo.style.display = 'block';
-    storyState.scene = 'Work';
-    storyState.currentContext = 'Work';
-    setNarration('Another Day at work time to do something.');
 
-    clearStoryTick();
-    storyTick = setInterval(() => {
-      storyState.hunger = clamp(storyState.hunger - 1, 0, 100);
-      storyState.thirst = clamp(storyState.thirst - 1, 0, 100);
-      updateStats();
-    }, 8000);
+  function openLaptop() {
+    storyState.currentContext = 'Working';
+    setNarration('Alright time to get started');
+    setInteraction('Work', 'Prompt Options:', [
 
-    setInteraction('Work', 'Choose what to do:', [
-      { label: 'Make a call', onClick: callCustomer },
-      { label: 'Open laptop', onClick: openLaptop },
-      { label: 'Go on break', onClick: goBreak },
-      { label: 'Go home', onClick: showHouse }
     ]);
+  }
+
+  function goBreak() {
+    storyState.currentContext = 'On Break';
+    setNarration('It is ok to take time to myself')
   }
 
   function clearSceneZeroTimers() {
@@ -405,6 +398,11 @@ function initGameOpening() {
   }
 
   function clearSceneCreditsTimers() {
+    sceneCreditsTimeouts.forEach((timerId) => clearTimeout(timerId));
+    sceneCreditsTimeouts = [];
+  }
+
+  function clearSceneEndGameTimers() {
     sceneCreditsTimeouts.forEach((timerId) => clearTimeout(timerId));
     sceneCreditsTimeouts = [];
   }
@@ -450,7 +448,7 @@ function initGameOpening() {
     });
   }
 
-  function typeWriterLine(line, lineDelay = 40) {
+  function typeWriterLinesceneCredits(line, lineDelay = 40) {
     return new Promise((resolve) => {
       let charIndex = 0;
       const typeNext = () => {
@@ -463,6 +461,26 @@ function initGameOpening() {
         }
 
         appendCreditsText('\n\n');
+        resolve();
+      };
+
+      typeNext();
+    });
+  }
+
+  function typeWriterLinesceneEndGame(line, lineDelay = 40) {
+    return new Promise((resolve) => {
+      let charIndex = 0;
+      const typeNext = () => {
+        if (charIndex < line.length) {
+          appendEndGameText(line.charAt(charIndex));
+          charIndex += 1;
+          const timeoutId = setTimeout(typeNext, lineDelay);
+          sceneEndGameTimeouts.push(timeoutId);
+          return;
+        }
+
+        appendEndGameText('\n\n');
         resolve();
       };
 
@@ -503,7 +521,56 @@ function initGameOpening() {
     sceneZeroTimeouts.push(fadeOutDelay);
   }
 
-  async function playsceneCredits() {
+  function startSceneOne() {
+    gameCanvas.style.display = 'none';
+    storySceneOne.style.display = 'block';
+    phoneNotification.style.display = 'block';
+    updateStats();
+
+    
+    setInteraction('Bed', 'Prompt Options:', [
+      {
+        label: 'Stay a moment',
+        onClick: () => {
+          storyState.mental = clamp(storyState.mental + 1, 0, 100);
+          storyState.hunger = clamp(storyState.hunger - 1, 0, 100);
+          storyState.thirst = clamp(storyState.thirst - 1, 0, 100);
+          updateStats();
+          setNarration('This place is quiet. Too quiet.');
+        }
+      },
+      {
+        label: 'Get up',
+        onClick: () => {
+          phoneNotification.style.display = 'none';
+          showHouseIntro();
+        }
+      }
+    ]);
+  }
+
+  function startSceneTwo() {
+    storySceneTwo.style.display = 'block';
+    storyState.scene = 'Work';
+    storyState.currentContext = 'Work';
+    setNarration('Another Day at work time to do something.');
+
+    clearStoryTick();
+    storyTick = setInterval(() => {
+      storyState.hunger = clamp(storyState.hunger - 1, 0, 100);
+      storyState.thirst = clamp(storyState.thirst - 1, 0, 100);
+      updateStats();
+    }, 8000);
+
+    setInteraction('Work', 'Choose what to do:', [
+      { label: 'Make a call', onClick: callCustomer },
+      { label: 'Open laptop', onClick: openLaptop },
+      { label: 'Go on break', onClick: goBreak },
+      { label: 'Go home', onClick: showHouse }
+    ]);
+  }
+
+  async function StartsceneCredits() {
     clearSceneCreditsTimers();
     openingScreen.style.display = 'none';
     gameCanvas.style.display = 'none';
@@ -515,7 +582,7 @@ function initGameOpening() {
     });
 
     for (const line of sceneCreditLines) {
-      await typeWriterLine(line);
+      await typeWriterLinesceneCredits(line);
       await new Promise((resolve) => {
         const timeoutId = setTimeout(resolve, 500);
         sceneCreditsTimeouts.push(timeoutId);
@@ -536,20 +603,42 @@ function initGameOpening() {
     sceneCreditsTimeouts.push(fadeOutDelay);
   }
 
-  newGameBtn.addEventListener('click', () => {
-    playSceneZero();
-  });
-
-  continueBtn.addEventListener('click', () => {
+  async function EndGame() {
+    clearSceneEndGameTimers();
     openingScreen.style.display = 'none';
-    sceneZeroOverlay.style.display = 'none';
-    gameCanvas.style.display = 'block';
-    resizeGameCanvas();
-  });
+    gameCanvas.style.display = 'none';
+    sceneEndGameText.textContent = '';
+    sceneCreditsOverlay.style.display = 'flex';
 
-  creditsBtn.addEventListener('click', () => {
-    playsceneCredits();
-  });
+    requestAnimationFrame(() => {
+      sceneEndGameOverlay.classList.add('active');
+    });
+
+    for (const line of sceneEndGameLines) {
+      await typeWriterLinesceneEndGame(line);
+      await new Promise((resolve) => {
+        const timeoutId = setTimeout(resolve, 500);
+        sceneEndGameTimeouts.push(timeoutId);
+      });
+    }
+
+    const fadeOutDelay = setTimeout(() => {
+      sceneEndGameOverlay.classList.remove('active');
+
+      const hideOverlayDelay = setTimeout(() => {
+        sceneEndGameOverlay.style.display = 'none';
+        openingScreen.style.display = 'block';
+      }, 1000);
+
+      sceneEndGameTimeouts.push(hideOverlayDelay);
+    }, 1200);
+
+    sceneEndGameTimeouts.push(fadeOutDelay);
+  }
+
+  if(statHealth = 0, statHunger = 0, statMental = 0, statThirst = 0) {
+    EndGame();
+  };
 
 }
 
