@@ -244,6 +244,11 @@ function initGameOpening() {
   });
 
   function showHouseIntro() {
+    storySceneTwo.style.display = 'none';
+    storySceneOne.style.display = 'block';
+    const homeBackground = storySceneOne.querySelector('.storyBackground');
+    if (homeBackground) homeBackground.src = 'Assets/Backgrounds/Interior(Background).png';
+
     storyState.scene = 'house';
     storyState.currentContext = 'move';
     setNarration('They set everything up; dishes, furniture, even the plants. From here on out, whatever happens is on me.');
@@ -265,6 +270,9 @@ function initGameOpening() {
 
   function showHouse() {
     storySceneOne.style.display = 'block';
+    storySceneTwo.style.display = 'none';
+    const homeBackground = storySceneOne.querySelector('.storyBackground');
+    if (homeBackground) homeBackground.src = 'Assets/Backgrounds/Interior(Background).png';
     storyState.scene = 'Home';
     storyState.currentContext = 'Home';
     setNarration('Today was a long day.');
@@ -550,7 +558,10 @@ function initGameOpening() {
   }
 
   function startSceneTwo() {
-    storySceneTwo.style.display = 'block';
+    storySceneTwo.style.display = 'none';
+    storySceneOne.style.display = 'block';
+    const workBackground = storySceneOne.querySelector('.storyBackground');
+    if (workBackground) workBackground.src = 'Assets/Backgrounds/Work Desk.png';
     storyState.scene = 'Work';
     storyState.currentContext = 'Work';
     setNarration('Another Day at work time to do something.');

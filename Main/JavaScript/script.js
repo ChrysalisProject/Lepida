@@ -223,6 +223,30 @@ document.getElementById('clearProgressBtn').addEventListener('click', () => {
 // ----------------------
 // Daily Prompts
 // ----------------------
+const TeacherQuotes = [
+  'S.Elliot: “The only thing you control is you and your actions”',
+  'C.Wahl: “You do not have to have everything figured out, as long as you keep growing”',
+  'M.Grimes: “Be open-minded and have fun while learning”',
+  'S.DeJesus: “Do not rush to grow up, enjoy life while learning and everything will fall in place”',
+  'E.Livingston: “Knowledge is power know as much as possible and ask for help, Do not fake it till you make it”',
+  'C.Radbill: Enjoy this time and do not rush to be an adult, stay young at heart always”',
+  'C.Ritter: “Start an IRA”',
+  'L.Drawdy: “Do not put off tomorrow, what can you do today”',
+  'M.Webber: “You are going to make mistakes”',
+  'J.Price: "Always try your best, but know your best looks different everyday”',
+  'S.Foster: It is going to suck, but it should not stop you from moving move forward at any pace”',
+  'R.Kohler: “Focus on you”',
+  'B.Smith: “Be open to advice, you do not know what you do not know”',
+  'D.Smith: “Do not feel like you have to do the normal”',
+  'A.Gibson: “Invest your money early”',
+  'P.Richards: “Knows things are going to happen”',
+  'B.Orsatti: “Watch your thoughts, they become your words; watch your words, they become your actions; watch your actions, they become your habits; watch your habits, they become your character; watch your character, it becomes your destiny”',
+  'N.Harris: “Prioritize yourself without being selfish or burning out; live life with grace and compassion”',
+  'K.Kim: “Be positive to yourself and do not be afraid of a challenge”',
+  'E.Horiates: “Continue to aim for higher, do not settle for less”',
+  'C.Wydra: “Be prepared, make sure you have everything you need”',
+  'N.Murdock: “Everyday is a new day with a new page. Just be yourself and put your best foot forward no matter what you are doing. Your hard work and dedication will pay off in the long run. “',
+];
 
 const dailyPromptsBank = [
    "What is one small goal for today?",
@@ -323,10 +347,17 @@ const dailyPromptsBank = [
 ];
 
 function getTodayKey(){ return new Date().toISOString().slice(0,10); }
+
 function getTodaysPromptText(){
   const key=getTodayKey();
   const idx=parseInt(key.replace(/-/g,''),10)%dailyPromptsBank.length;
   return dailyPromptsBank[idx];
+}
+
+function getTeacherQuotesText(){
+  const key=getTodayKey();
+  const idx=parseInt(key.replace(/-/g,''),10)%TeacherQuotes.length;
+  return TeacherQuotes[idx];
 }
 
 function renderDailyHistory(){
@@ -338,6 +369,7 @@ function renderDailyHistory(){
     el.innerHTML=`<strong>${entry.date}</strong><div style="margin-top:6px;color:#243b4a">${entry.text}</div>`;
     past.appendChild(el);
   });
+  document.getElementById('TeacherQuote').textContent=getTeacherQuotesText();
   document.getElementById('todayPrompt').textContent=getTodaysPromptText();
   document.getElementById('todayResponse').value='';
 }

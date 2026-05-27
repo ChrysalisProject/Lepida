@@ -93,8 +93,10 @@
 
   <!-- DAILY PROMPTS -->
 <div id="dailyScreen" class="screen" style="display:none;">
-    <h2>Daily Prompt</h2>
-    <p id="todayPrompt" class="prompt"></p>
+    <h2>Quote of the day:</h2>
+    <h2 id="TeacherQuote" class="TeacherQuote"></h2>
+    <h1>Daily Prompt:</h1>
+    <h2 id="todayPrompt" class="prompt"></h2>
     <textarea id="todayResponse" rows="5" placeholder="Write your response..."></textarea>
     <div><button onclick="saveTodayPrompt()">Save Response</button></div>
     <h3>Past Responses</h3>
@@ -134,7 +136,7 @@
           </div>
         </div>
         <div id="storySceneOne" class="storySceneOne" style="display:none;" aria-live="polite">
-          <img id="storyBackground" class="storyBackground" src="Assets/Backgrounds/Interior(Background).png" alt="Bedroom interior" />
+          <img id="storyBackgroundHome" class="storyBackground" src="Assets/Backgrounds/Interior(Background).png" alt="Bedroom interior" />
           
           <div id="statsPanel" class="statsPanel" aria-label="Player stats">
             <button id="statsToggleBtn" class="statsToggleBtn" type="button" aria-expanded="true" aria-controls="statsPanelBody">Hide Stats</button>
@@ -174,7 +176,7 @@
         </div>
 
         <div id="storySceneTwo" class="storySceneTwo" style="display:none;" aria-live="polite">
-          <img id="storyBackground" class="storyBackground" src="Assets/Backgrounds/Work Desk.png" alt="Work" />
+          <img id="storyBackgroundWork" class="storyBackground" src="Assets/Backgrounds/Work Desk.png" alt="Work" />
         </div>
     </div>
       <canvas id="gameCanvas" width="960" height="540" style="display:none;"></canvas>
