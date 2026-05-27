@@ -790,11 +790,11 @@ input {
 
 .storyNarration {
   position: absolute;
-  left: 50%;
-  bottom: 20px;
+  left: 86%;
+  bottom: 35px;
   transform: translateX(-50%);
-  width: min(76%, 880px);
-  min-height: 50px;
+  width: min(24%, 880px);
+  max-height: 50% ;
   background: rgba(255, 255, 255, 0.95);
   color: #10131a;
   border: 3px solid #10131a;
@@ -802,14 +802,14 @@ input {
   padding: 14px 18px;
   box-shadow: 8px 8px 0 rgba(0, 0, 0, 0.4);
   font-family: "Press Start 2P", system-ui;
-  font-size: 14px;
+  font-size: 10px;
   z-index: 3;
 }
 
 .storyNarrationSpeaker {
   margin-bottom: 8px;
   font-family: "Press Start 2P", system-ui;
-  font-size: 11px;
+  font-size: 10px;
   text-transform: uppercase;
   letter-spacing: 0.08em;
   color: #2b3342;
@@ -819,7 +819,7 @@ input {
   margin: 0;
   min-height: 1.8em;
   font-family: "Press Start 2p";
-  font-size: clamp(18px, 2.4vw, 24px);
+  font-size: clamp(10px, 2.4vw, 24px);
   line-height: 1.15;
   letter-spacing: 0.02em;
 }
@@ -844,9 +844,9 @@ input {
 .interactionPanel {
   position: absolute;
   right: 14px;
-  bottom: 14px;
-  width: min(36%, 420px);
-  max-height: 62%;
+  bottom: 300px;
+  width: min(24%, 420px);
+  max-height: 300%;
   overflow-y: auto;
   background: rgba(12, 18, 22, 0.9);
   border: 1px solid rgba(255,255,255,0.22);

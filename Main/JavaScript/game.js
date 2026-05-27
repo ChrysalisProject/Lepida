@@ -35,7 +35,6 @@ function initGameOpening() {
   const interactionTitle = document.getElementById('interactionTitle');
   const interactionPrompt = document.getElementById('interactionPrompt');
   const interactionActions = document.getElementById('interactionActions');
-  const phoneNotification = document.getElementById('phoneNotification');
   const statHealth = document.getElementById('statHealth');
   const statHunger = document.getElementById('statHunger');
   const statThirst = document.getElementById('statThirst');
@@ -65,7 +64,6 @@ function initGameOpening() {
     !interactionTitle || 
     !interactionPrompt || 
     !interactionActions || 
-    !phoneNotification || 
     !statHealth || 
     !statHunger || 
     !statThirst || 
@@ -239,10 +237,6 @@ function initGameOpening() {
     }
   }
 
-  phoneNotificationOkBtn.addEventListener('click', () => {
-    phoneNotification.style.display = 'none';
-  });
-
   function showHouseIntro() {
     storySceneTwo.style.display = 'none';
     storySceneOne.style.display = 'block';
@@ -251,7 +245,7 @@ function initGameOpening() {
 
     storyState.scene = 'house';
     storyState.currentContext = 'move';
-    setNarration('They set everything up; dishes, furniture, even the plants. From here on out, whatever happens is on me.');
+    setNarration('They set everything up. From here on out, whatever happens is on me.');
 
     clearStoryTick();
     storyTick = setInterval(() => {
@@ -532,7 +526,6 @@ function initGameOpening() {
   function startSceneOne() {
     gameCanvas.style.display = 'none';
     storySceneOne.style.display = 'block';
-    phoneNotification.style.display = 'block';
     updateStats();
 
     
@@ -550,7 +543,6 @@ function initGameOpening() {
       {
         label: 'Get up',
         onClick: () => {
-          phoneNotification.style.display = 'none';
           showHouseIntro();
         }
       }
